@@ -1,0 +1,56 @@
+Given a grid where each entry is only 0 or 1, find the number of corner rectangles.
+
+A corner rectangle is 4 distinct 1s on the grid that form an axis-aligned rectangle. Note that only the corners need to have the value 1. Also, all four 1s used must be distinct.
+
+ 
+
+Example 1:
+
+Input: grid = 
+[[1, 0, 0, 1, 0],
+ [0, 0, 1, 0, 1],
+ [0, 0, 0, 1, 0],
+ [1, 0, 1, 0, 1]]
+Output: 1
+Explanation: There is only one corner rectangle, with corners grid[1][2], grid[1][4], grid[3][2], grid[3][4].
+ 
+
+Example 2:
+
+Input: grid = 
+[[1, 1, 1],
+ [1, 1, 1],
+ [1, 1, 1]]
+Output: 9
+Explanation: There are four 2x2 rectangles, four 2x3 and 3x2 rectangles, and one 3x3 rectangle.
+
+
+
+
+
+
+
+Go through the grid from top-left to bottom-right using i for the row and j for the column of the top-left corner of each rectangle.
+If the cell at grid[i][j] is set, then iterate through each combination of rectangles formed using k as the row and l as the column 
+of the bottom-right corner of each rectangle. Check if each corner of the rectangle is set, if so, then a corner rectangle is found,
+increment cnt. After all potential corner rectangles have been checked, return cnt.
+
+
+Note: in order to create a rectangle, there needs to be at least 1 row below and 1 column to the right of the top-left corner. 
+That is why each of the outter-most for-loops terminate when i<m-1 and j<n-1. This is an optimization since no corner rectangle exists who's 
+top-left corner exists on the bottom-most row or right-most column.
+
+class Solution {
+public:
+    int countCornerRectangles(vector<vector<int>>& grid) {
+        int cnt=0,m=(int)grid.size(),n=(int)grid[0].size();
+        for (int i=0; i<m-1; ++i)
+            for (int j=0; j<n-1; ++j)
+                if (grid[i][j])
+                    for (int k=i+1; k<m; ++k)
+                        for (int l=j+1; l<n; ++l)
+                            if (grid[i][l] && grid[k][l] && grid[k][j])
+                                ++cnt;
+        return cnt;
+    }
+};
