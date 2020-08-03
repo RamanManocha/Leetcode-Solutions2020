@@ -1,0 +1,91 @@
+1229. Meeting Scheduler
+Medium
+
+201
+
+11
+
+Add to List
+
+Share
+Given the availability time slots arrays slots1 and slots2 of two people and a meeting duration duration, return the earliest time slot that works for both of them and is of duration duration.
+
+If there is no common time slot that satisfies the requirements, return an empty array.
+
+The format of a time slot is an array of two elements [start, end] representing an inclusive time range from start to end.  
+
+It is guaranteed that no two availability slots of the same person intersect with each other. That is, for any two time slots [start1, end1] and [start2, end2] of the same person, either start1 > end2 or start2 > end1.
+
+ 
+
+Example 1:
+
+Input: slots1 = [[10,50],[60,120],[140,210]], slots2 = [[0,15],[60,70]], duration = 8
+Output: [60,68]
+Example 2:
+
+Input: slots1 = [[10,50],[60,120],[140,210]], slots2 = [[0,15],[60,70]], duration = 12
+Output: []
+ 
+
+Constraints:
+
+1 <= slots1.length, slots2.length <= 10^4
+slots1[i].length, slots2[i].length == 2
+slots1[i][0] < slots1[i][1]
+slots2[i][0] < slots2[i][1]
+0 <= slots1[i][j], slots2[i][j] <= 10^9
+1 <= duration <= 10^6 
+
+
+vector<int> minAvailableDuration(vector<vector<int>>& slots1, vector<vector<int>>& slots2, int duration) {
+    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> q;
+    for (auto s : slots1) {
+        if (s[1] - s[0] >= duration) q.push({ s[0], s[1] });
+    }
+    for (auto s : slots2) {
+        if (s[1] - s[0] >= duration) q.push({ s[0], s[1] });
+    }
+    while (q.size() > 1) {
+        auto end1 = q.top().second;
+        q.pop();
+        auto start2 = q.top().first;
+        if (end1 >= start2 + duration)
+            return { start2, start2 + duration };
+    }
+    return {};
+}
+
+
+Put both slots1 and slots2 into PriorityQueue/heapq (first filter slots shorter than duration, credit to @SunnyvaleCA), sort by starting time;
+Pop out the slots one by one, comparing every consective two to check if having duration time in common.
+
+
+Approach 2:
+
+class Solution {
+public:
+    
+    
+    // this is a generic approach for intersection problems
+    vector<int> minAvailableDuration(vector<vector<int>>& slots1, vector<vector<int>>& slots2, int duration) {
+        sort(slots1.begin(), slots1.end()); // sort increasing by start time (default sorting by first value)
+        sort(slots2.begin(), slots2.end()); // sort increasing by start time (default sorting by first value)
+        
+        int i = 0, j = 0;
+        int n1 = slots1.size(), n2 = slots2.size();
+        while (i < n1 && j < n2) {
+            // Find intersect between slots1[i] and slots2[j]
+            int intersectStart = max(slots1[i][0], slots2[j][0]);
+            int intersectEnd = min(slots1[i][1], slots2[j][1]);
+
+            if (intersectStart + duration <= intersectEnd) // Found the result
+                return {intersectStart, intersectStart + duration};
+            else if (slots1[i][1] < slots2[j][1])
+                i++;
+            else
+                j++;
+        }
+        return {};
+    }
+};
