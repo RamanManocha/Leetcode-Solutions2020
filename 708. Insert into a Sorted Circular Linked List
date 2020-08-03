@@ -1,0 +1,144 @@
+708. Insert into a Sorted Circular Linked List
+Medium
+
+304
+
+307
+
+Add to List
+
+Share
+Given a node from a Circular Linked List which is sorted in ascending order, write a function to insert a value insertVal into the list such that it remains a sorted circular list. The given node can be a reference to any single node in the list, and may not be necessarily the smallest value in the circular list.
+
+If there are multiple suitable places for insertion, you may choose any place to insert the new value. After the insertion, the circular list should remain sorted.
+
+If the list is empty (i.e., given node is null), you should create a new single circular list and return the reference to that single node. Otherwise, you should return the original given node.
+
+ 
+
+Example 1:
+
+
+ 
+Input: head = [3,4,1], insertVal = 2
+Output: [3,4,1,2]
+Explanation: In the figure above, there is a sorted circular list of three elements. You are given a reference to the node with value 3, and we need to insert 2 into the list. The new node should be inserted between node 1 and node 3. After the insertion, the list should look like this, and we should still return node 3.
+
+
+
+
+
+
+
+
+Node* insert(Node* head, int insertVal) {
+    if (!head) {
+        head = new Node(insertVal, nullptr);
+        head->next = head;
+        return head;
+    }
+
+    Node* prev = head;
+    Node* next = head->next;
+    bool inserted = false;
+    while (true) {
+        // insert when:
+        // 1. prev <= insertVal <= next
+        // 2. insertVal < min (insert at the tail)
+        // 3. insertVal > max (insert at the tail)
+        if ((prev->val <= insertVal && insertVal <= next->val) ||
+            (prev->val > next->val && insertVal < next->val) ||
+            (prev->val > next->val && insertVal > prev->val)) {
+            prev->next = new Node(insertVal, next);
+            inserted = true;
+            break;
+        }
+
+        prev = prev->next;
+        next = next->next;
+        if (prev == head) break;
+    }
+    
+    if (!inserted) {
+        // The only reason why `value` was not inserted is that
+        // all values in the list are the same and are not equal to `value`.
+        // So, we could insert `value` anywhere.
+        prev->next = new Node(insertVal, next);
+    }
+
+    return head;
+}
+
+
+
+
+
+
+
+
+
+
+This is an almost-one-pass solution (with 2 passes for the worst case, but you can easily improve that to 1-pass, too).
+
+I'm not making it completely one-pass because it's trivial.
+
+class Solution {
+private:
+    void insertAfter(Node* p, int val){
+        p->next=new Node(val, p->next);
+    }
+    void insertBefore(Node* p, int val){
+        // actually we can always record the previous node of the minNode,
+        // so that we don't have to do another pass in this worst case.
+        Node* prev=p;
+        while(prev->next!=p)
+            prev=prev->next;
+        prev->next=new Node(val,p);
+    }
+public:
+    Node* insert(Node* head, int insertVal) {
+        // first, we deal with special cases
+        if(head==nullptr){
+            Node* res=new Node(insertVal, nullptr);
+            res->next=res;
+            return res;
+        }else if(head->next==head){
+            head->next=new Node(insertVal, head);
+            head->next->next=head;
+            return head;
+        }
+        // now we know the list's length is >= 2
+		
+        // for one pass, if insertVal is within [minValue, maxValue] of the list, we can insert it easily;
+        // however, if insertVal <= minValue or insertVal >= maxValue, we should find the lastMaxNode or firstMinNode
+		
+        // lastMaxNode is for this kind of situations: [1,2,3,4,4,4,4,4,4] and we are inserting "5"
+        //   in that case, we need to find the last "4"
+		
+        // firstMinNode is similar: [2,2,2,2,2,3,4,5] and we are inserting "1"
+		//   in that case, we need to find the first "2"
+        int maxVal=head->val, minVal=head->val, size=0; // size is for debug and boundary-check purposes
+        Node* lastMaxNode=head, *firstMinNode=head;
+        for(Node* slow=head,*fast=head; size==0||slow!=fast; slow=slow->next,fast=fast->next->next,size++){
+            if(maxVal<=slow->val){
+                maxVal=slow->val;
+                lastMaxNode=slow;
+            }
+            if(minVal>slow->val){
+                minVal=slow->val;
+                firstMinNode=slow;
+            }
+			// insertVal is in between [minVal, maxVal], we insert it
+            if(slow->val<=insertVal && insertVal<=slow->next->val){
+                insertAfter(slow, insertVal);
+                return head;
+            }
+        }
+		// insertVal was not inserted, because:
+        if(insertVal>=maxVal){ // we can also use ">"
+            insertAfter(lastMaxNode, insertVal);
+        }else{ // insertVal<minVal
+            insertBefore(firstMinNode, insertVal);
+        }        
+        return head;
+    }
