@@ -61,6 +61,42 @@ public:
 Approach 2:
 
 
+int count_corner_rectangles (vector<vector<int>> & grid) {
+    auto rows = grid.size();
+    auto cols = rows ? grid[0].size() : 0;
+    if (!rows || !cols)
+        return 0;
+
+    auto find_rectangles = [&](int u, int l, int r) -> unsigned {
+        auto count = 0;
+        for (auto d = u + 1; d < rows; ++d)
+            if (grid[d][l] && grid[d][r])
+                ++count;
+
+        return count;
+    };
+
+    auto count = 0;
+    for (auto u = 0; u < rows; ++u)
+        for (auto l = 0; l < cols - 1; ++l) {
+            if (!grid[u][l])
+                continue;
+
+            for (auto r = l + 1; r < cols; ++r) {
+                if (!grid[u][r])
+                    continue;
+
+                count += find_rectangles(u, l, r);
+            }
+        }
+
+    return count;
+}
+
+
+
+
+
 The count() of 1s in the bitset is O(#1s), therefore this solution shoule be better than O(m^2 n)
 
 int countCornerRectangles(vector<vector<int>>& grid) {
