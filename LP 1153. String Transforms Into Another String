@@ -1,0 +1,82 @@
+Google phone interview
+
+Given two strings str1 and str2 of the same length, determine whether you can transform str1 into str2 by doing zero or more conversions.
+
+In one conversion you can convert all occurrences of one character in str1 to any other lowercase English character.
+
+Return true if and only if you can transform str1 into str2.
+
+ 
+
+Example 1:
+
+Input: str1 = "aabcc", str2 = "ccdee"
+Output: true
+Explanation: Convert 'c' to 'e' then 'b' to 'd' then 'a' to 'c'. Note that the order of conversions matter.
+Example 2:
+
+Input: str1 = "leetcode", str2 = "codeleet"
+Output: false
+Explanation: There is no way to transform str1 to str2.
+ 
+
+Note:
+
+1 <= str1.length == str2.length <= 10^4
+Both str1 and str2 contain only lowercase English letters
+
+Explanation
+
+Scan s1 and s2 at the same time,
+record the transform mapping into a map/array.
+The same char should transform to the same char.
+Otherwise we can directly return false.
+
+To realise the transformation:
+
+transformation of link link ,like a -> b -> c:
+we do the transformation from end to begin, that is b->c then a->b
+
+transformation of cycle, like a -> b -> c -> a:
+in this case we need a tmp
+c->tmp, b->c a->b and tmp->a
+Same as the process of swap two variable.
+
+In both case, there should at least one character that is unused,
+to use it as the tmp for transformation.
+So we need to return if the size of set of unused characters < 26.
+
+   bool canConvert(string s1, string s2) {
+        if (s1 == s2) return true;
+        unordered_map<char, char> dp;
+        for (int i = 0; i < s1.length(); ++i) {
+            if (dp[s1[i]] != NULL && dp[s1[i]] != s2[i])
+                return false;
+            dp[s1[i]] = s2[i];
+        }
+        return set(s2.begin(), s2.end()).size() < 26;
+    }
+    
+    
+    
+Approach 2 :
+
+Had a lot fun solving this question.
+Will try to recollect my thought process and post it here.
+
+We need some kind of mapping from source to destination
+We need to group together characters as sets of sets.
+We do not need to worry about which character we have in which set, under the condition that we have an extra character in the source string (length of source < 26).
+We can only do an union on the sets in the source string to reach the destination string.
+I spent a lot of time trying to prove the above statement's correctness or otherwise. My final idea was this. If we have extra character which we can use a buffer, then we can come up with an ordering which will allow us to come up with a transformation from the source string to the destination string.
+    bool canConvert(string str1, string str2) {
+        unordered_set<char> s1(str1.begin(), str1.end()), s2(str2.begin(), str2.end());
+        unordered_map<char, char> m3;
+        int m = str1.length();
+        for (int i = 0; i < m; i ++) {
+            if (m3.count(str1[i]) && m3[str1[i]] != str2[i]) return false; 
+            m3[str1[i]] = str2[i];
+        }
+        if (s1.size() == 26 && s2.size() == 26 && str1 != str2) return false;
+        return true;
+    }
