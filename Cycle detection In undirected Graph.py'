@@ -1,0 +1,34 @@
+def cycUtil(graph, visited, parent,v):
+  visited.append(v)
+ 
+  
+  if v in graph:
+    for n in graph[v]: 
+      
+      if n not in visited:
+        retval = cycUtil(graph, visited, v,n)
+        if retval:
+          return True
+      else:
+        if n != parent:
+          return True
+
+  return False
+  
+
+def isCyclic(graph, V):
+  visited = []
+  #recStk = []
+  parent = -1
+  
+  for v in V:
+    if v not in visited:
+      retval = cycUtil(graph, visited, parent,v)
+      if retval:
+        return True
+  return False
+
+
+graph = {0:[1,2,3], 3:[2,0], 2:[0,3]}
+V = [0,1,2,3]
+print(isCyclic(graph, V))
