@@ -1,6 +1,7 @@
 https://www.geeksforgeeks.org/shortest-path-unweighted-graph/
 
 
+Here we require only  single geaph
 
 One solution is to solve in O(VE) time using Bellman–Ford. If there are no negative weight cycles, then we can solve in O(E + VLogV) time using Dijkstra’s algorithm.
 
