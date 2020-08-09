@@ -1,4 +1,12 @@
+https://www.geeksforgeeks.org/find-a-peak-in-a-given-array/
 
+Given an array of integers. Find a peak element in it. An array element is a peak if it is NOT smaller than its neighbours. For corner elements, we need to consider only one neighbour.
+Example:
+
+Input: array[]= {5, 10, 20, 15}
+Output: 20
+The element 20 has neighbours 10 and 15,
+both of them are less than 20.
  The idea is based on the technique of Binary Search to check if the middle element is the peak element or not. 
 If the middle element is not the peak element, then check if the element on the right side is greater than the middle element 
 then there is always a peak element on the right side. If the element on the left side is greater than the middle element then there 
