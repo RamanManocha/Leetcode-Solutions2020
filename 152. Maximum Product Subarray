@@ -1,0 +1,34 @@
+152. Maximum Product Subarray
+Medium
+
+4425
+
+163
+
+Add to List
+
+Share
+Given an integer array nums, find the contiguous subarray within an array (containing at least one number) which has the largest product.
+
+Example 1:
+
+
+
+class Solution {
+public:
+    int maxProduct(vector<int>& nums) {
+        int global_max = nums[0], current_max = nums[0], current_min = nums[0];
+        int n = nums.size();
+        // we are using current_max in finding current_min, thus we stored it in temp
+        for(int i = 1; i < n; i++)
+        {int temp = current_max;
+        current_max = max(nums[i], max(current_max * nums[i], current_min *nums[i]));
+        current_min= min(nums[i], min(current_min * nums[i], temp * nums[i]));    
+            if( current_max > global_max)
+            global_max = current_max;
+        } 
+        return global_max;
+    }
+};
+
+
