@@ -1,3 +1,7 @@
+
+
+https://www.geeksforgeeks.org/maximum-sum-of-even-indexed-elements-obtained-by-right-shift-on-an-even-sized-subarray/
+
 Maximum sum of even indexed elements obtained by right shift on an even sized subarray
 
 Given an array arr[], we need to find the maximum sum of the even indexed elements that can be obtained by performing right shift operation on any sub-array of even length by 1.
@@ -23,6 +27,19 @@ Naive Approach: The naive approach is to right shift every possible subarray of 
 
 
 
+	
+We will use the above concepts to solve this problem. Below are the steps:
+
+Create two arrays(say arr1[] and arr2[]) such that arr1[] will store the consecutive difference of the element in the array arr[] as:
+{(a[1] – a[0]), (a[3] – a[2]), . . ., (a[n]-a[n-1])}
+And arr2[] will store the consecutive difference of the element in the array arr[] as:
+
+{(a[1] – a[2]), (a[3] – a[4]), . . ., (a[n-1]-a[n])}
+Then find the maximum subarray sum using Kadane’s Algorithm in the above two array formed.
+Now the maximum sum is the sum of element at even indexes in the original array(arr[]) + maximum subarray sum of the two arrays arr1[] and arr2[].
+	
+	
+	
 
 
 // C++ program for the above approach 
