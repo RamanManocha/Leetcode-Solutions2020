@@ -1,0 +1,53 @@
+115. Distinct Subsequences
+
+
+Share
+Given a string S and a string T, count the number of distinct subsequences of S which equals T.
+
+A subsequence of a string is a new string which is formed from the original string by deleting some (can be none) of the characters without disturbing the relative positions of the remaining characters. (ie, "ACE" is a subsequence of "ABCDE" while "AEC" is not).
+
+It's guaranteed the answer fits on a 32-bit signed integer.
+
+Example 1:
+
+Input: S = "rabbbit", T = "rabbit"
+Output: 3
+Explanation:
+As shown below, there are 3 ways you can generate "rabbit" from S.
+(The caret symbol ^ means the chosen letters)
+
+rabbbit
+^^^^ ^^
+rabbbit
+^^ ^^^^
+rabbbit
+^^^ ^^^
+
+
+
+
+
+
+// whenever I will be having a match I will have two options either to take it or just simply 
+// exclude it
+
+// Let's first define its state dp[i][j] to be the number of distinct subsequences of t[0..i - 1] in s[0..j - 1]. Then we have the following state equations:
+
+
+class Solution {
+public:
+    int numDistinct(string s, string t) {
+        long m = t.length(), n = s.length();
+        vector<vector<long>> dp(m + 1, vector<long> (n + 1, 0));
+        for (int j = 0; j <= n; j++) dp[0][j] = 1;
+        for (int j = 1; j <= n; j++){
+        for (int i = 1; i <= m; i++){
+            if(t[i - 1] == s[j - 1]){
+                dp[i][j] = dp[i][j - 1] + dp[i - 1][j - 1];
+                    }
+            else dp[i][j] = dp[i][j - 1];
+            }
+        }
+        return dp[m][n];
+    }
+};  
