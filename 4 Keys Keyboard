@@ -30,6 +30,10 @@ A, A, A
 
 
 
+
+
+
+
 We can solve this problem using DP with optimization in O(N) time, based on two observations. Here I assume n >= 6.
 
 For dp[n], we can copy dp[n-3] and paste 1 time, or copy dp[n-4] and paste 2 times, and so on.
@@ -50,4 +54,81 @@ public:
         return dp[N];
     }
 };
+
+
+Here for each b we have to check
+
+    // TRY ALL POSSIBLE BREAK-POINTS 
+    // For any keystroke N, we need to loop from N-3 keystrokes 
+    // back to 1 keystroke to find a breakpoint 'b' after which we 
+    // will have Ctrl-A, Ctrl-C and then only Ctrl-V all the way
+    
+    
+    
+    
+    
+    
+Gfg approach:
+
+
+https://www.geeksforgeeks.org/how-to-print-maximum-number-of-a-using-given-four-keys/
+    
+    /* A Dynamic Programming based C program to find maximum number of A's 
+that can be printed using four keys */
+#include <iostream> 
+using namespace std; 
+
+
+// this function returns the optimal length string for N keystrokes 
+int findoptimal(int N) 
+{ 
+	// The optimal string length is N when N is smaller than 7 
+	if (N <= 6) 
+		return N; 
+
+	// An array to store result of subproblems 
+	int screen[N]; 
+
+	int b; // To pick a breakpoint 
+
+	// Initializing the optimal lengths array for uptil 6 input 
+	// strokes. 
+	int n; 
+	for (n = 1; n <= 6; n++) 
+		screen[n - 1] = n; 
+
+	// Solve all subproblems in bottom manner 
+	for (n = 7; n <= N; n++) { 
+		// Initialize length of optimal string for n keystrokes 
+		screen[n - 1] = 0; 
+
+		// For any keystroke n, we need to loop from n-3 keystrokes 
+		// back to 1 keystroke to find a breakpoint 'b' after which we 
+		// will have ctrl-a, ctrl-c and then only ctrl-v all the way. 
+		for (b = n - 3; b >= 1; b--) { 
+			// if the breakpoint is at b'th keystroke then 
+			// the optimal string would have length 
+			// (n-b-1)*screen[b-1]; 
+			int curr = (n - b - 1) * screen[b - 1]; 
+			if (curr > screen[n - 1]) 
+				screen[n - 1] = curr; 
+		} 
+	} 
+
+	return screen[N - 1]; 
+} 
+
+// Driver program 
+int main() 
+{ 
+	int N; 
+
+	// for the rest of the array we will rely on the previous 
+	// entries to compute new ones 
+	for (N = 1; N <= 20; N++) 
+		cout << "Maximum Number of A's with "<<N<<" keystrokes is "
+		<< findoptimal(N) << endl; 
+} 
+
+//This is contributed by shubhamsingh10 
 
