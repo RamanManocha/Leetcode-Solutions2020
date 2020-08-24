@@ -2,9 +2,9 @@
 
 
 
-// bubbleSort(nums);
+ bubbleSort(nums);
 
-/*
+
     1. Bubble sort:
     Worstcase time: O(n^2), Bestcase Time: O(n) -  list already sorted, Space: O(1)
     
