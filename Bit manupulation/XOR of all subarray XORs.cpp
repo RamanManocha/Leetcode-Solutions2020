@@ -1,6 +1,6 @@
 XOR of all subarray XORs
 
-
+https://www.geeksforgeeks.org/xor-subarray-xors/
 
 Given an array of integers, we need to get total XOR of all subarray XORs where subarray XOR can be obtained by XORing all elements of it.
 
