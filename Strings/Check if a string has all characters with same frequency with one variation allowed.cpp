@@ -1,4 +1,8 @@
-Given a string of lowercase alphabets, find if it can be converted to a Valid String by removing 1 or 0 characters. A “valid” string is a string str such that for all distinct characters in str each such character occurs the same number of times in it.
+Given a string of lowercase alphabets, find if it can be converted to a Valid String by removing 1 or 0 characters. A “valid” string is a string str such that 
+for all distinct characters in str each such character occurs the same number of times in it.
+
+	
+https://www.geeksforgeeks.org/check-if-a-string-has-all-characters-with-same-frequency-with-one-variation-allowed/
 
 Examples :
 
