@@ -1,5 +1,5 @@
 Dice Throw | DP-30
-Last Updated: 11-07-2019
+
 Given n dice each with m faces, numbered from 1 to m, find the number of ways to get sum X. X is the summation of values on each face when all the dice are thrown.
 
 
