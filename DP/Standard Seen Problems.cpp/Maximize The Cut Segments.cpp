@@ -8,7 +8,7 @@ First line of input contains of an integer 'T' denoting number of test cases. Fi
 Output
 For each test case print in a new line an integer corresponding to the answer 
 
-
+https://practice.geeksforgeeks.org/problems/cutted-segments/0
 
 using namespace std;
 #define ll long long 
