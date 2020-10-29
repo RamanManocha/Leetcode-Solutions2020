@@ -2,6 +2,10 @@ Maximum MEX from all subarrays of length K
 Last Updated: 27-10-2020
 Given an array arr[] consisting of N distinct integers and an integer K, the task is to find the maximum MEX from all subarrays of length K.
 
+https://www.geeksforgeeks.org/maximum-mex-from-all-subarrays-of-length-k/	
+	
+	
+	
 The MEX is the smallest positive integer that is not present in the array.
 
 Examples:
