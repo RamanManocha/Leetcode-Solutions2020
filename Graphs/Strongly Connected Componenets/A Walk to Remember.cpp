@@ -1,6 +1,20 @@
 A Walk to Remember
 
 
+Problem : Given an unweighted directed graph with N nodes and M edges, for each node i , tell whether it is part of a cycle or not.
+	
+Solution:
+Naive Solution O(N*M) : One way to solve this problem could be that for each node i, We perform a dfs with i as root and check if a back edge comes from any other vertex in the graph to node i. If yes, the node will be a part of a cycle otherwise not. Since for each node we perform a dfs, the complexity will be O(N*M) and would time out.
+
+Faster Solution O(N+M) : Instead of performing a dfs for every node, we could find the strongly connected components (scc) of the given graph. If the size of an scc is greater than 1, the answer for all the nodes in that scc will be yes. This would work because an scc can be imagined as one or more directed cycles attached to each other by sharing common vertices. Hence, each vertex in an scc of size greater than 1 will be a part of a cycle. The scc's can be found by using any one of the two standard algorithms : Kosaraju or Tarjan's algorithm.
+
+Did you find this editorial helpful?  Yes (59)    No (8)
+	
+	
+	
+	
+	
+
 https://www.youtube.com/watch?v=ZKhOauZgACE&ab_channel=CodeNCode
 
 
