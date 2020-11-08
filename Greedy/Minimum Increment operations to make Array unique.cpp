@@ -1,6 +1,12 @@
 
 Minimum Increment operations to make Array unique
 
+
+
+https://www.geeksforgeeks.org/minimum-increment-operations-to-make-array-unique/
+
+
+
 Given an array A[] of integers. In one move you can choose any element A[i], and increment it by 1. The task is to return the minimum number of moves needed 
 to make every value in the array
 A[] unique.
