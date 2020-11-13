@@ -3,6 +3,7 @@ Given N monkeys and M rituals. Each monkey teams up two monkeys. Also if A and B
 same team (transitive relation). Now given an array A where Ai represents the number of bananas. Print the maximum number of bananas that
 a team can collect.
 
+https://www.hackerearth.com/practice/algorithms/graphs/depth-first-search/practice-problems/algorithm/kingdom-of-monkeys/
 
 Approach :
 
