@@ -1,3 +1,5 @@
+https://www.geeksforgeeks.org/interleave-first-half-queue-second-half/
+
 Interleave the first half of the queue with second half
 Last Updated: 06-11-2020
 Given a queue of integers of even length, rearrange the elements by interleaving the first half of the queue with the second half of the queue.
