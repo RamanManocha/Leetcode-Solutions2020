@@ -1,5 +1,11 @@
 
 
+
+https://www.geeksforgeeks.org/minimize-the-maximum-difference-between-the-heights/
+
+
+
+
 Minimize the maximum difference between the heights
 Last Updated: 10-07-2019
 Given heights of n towers and a value k. We need to either increase or decrease height of every tower by k (only once) where k > 0. The task is to minimize
