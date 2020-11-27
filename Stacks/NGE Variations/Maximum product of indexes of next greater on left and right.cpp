@@ -3,6 +3,7 @@
 Maximum product of indexes of next greater on left and right
 
 
+https://www.geeksforgeeks.org/maximum-product-of-indexes-of-next-greater-on-left-and-right/#:~:text=%E2%80%A6.,to%20find%20max%20product%20value.
 
 Maximum product of indexes of next greater on left and right
 Last Updated: 15-05-2020
