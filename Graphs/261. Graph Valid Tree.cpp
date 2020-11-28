@@ -14,6 +14,99 @@ Output: false
 
 
 
+   Using BFS
+   
+   
+   class Solution {
+ public:
+  bool validTree(int n, vector<vector<int>>& edges) {
+    if (n == 0 || edges.size() != n - 1)
+      return false;
+
+    vector<vector<int>> graph(n);
+    queue<int> q{{0}};
+    unordered_set<int> seen{{0}};
+
+    for (const vector<int> edge : edges) {
+      graph[edge[0]].push_back(edge[1]);
+      graph[edge[1]].push_back(edge[0]);
+    }
+
+    while (!q.empty()) {
+      const int node = q.front();
+      q.pop();
+      for (const int neighbor : graph[node])
+        if (!seen.count(neighbor)) {
+          q.push(neighbor);
+          seen.insert(neighbor);
+        }
+    }
+
+    return seen.size() == n;
+  }
+};
+
+
+
+
+class UF {
+ public:
+  UF(int n) : size(n), rank(n), parent(n) {
+    for (int i = 0; i < n; ++i)
+      parent[i] = i;
+  }
+
+  void union_(int u, int v) {
+    const int pu = find(u);
+    const int pv = find(v);
+    if (pu == pv)
+      return;
+
+    --size;
+    if (rank[pu] < rank[pv])
+      parent[pu] = pv;
+    else if (rank[pv] < rank[pu])
+      parent[pv] = pu;
+    else {
+      parent[pu] = pv;
+      ++rank[pv];
+    }
+  }
+
+  int getSize() {
+    return size;
+  }
+
+ private:
+  int size;
+  vector<int> rank;
+  vector<int> parent;
+
+  int find(int u) {
+    if (u != parent[u])
+      parent[u] = find(parent[u]);
+    return parent[u];
+  }
+};
+
+class Solution {
+ public:
+  bool validTree(int n, vector<vector<int>>& edges) {
+    if (n == 0 || edges.size() != n - 1)
+      return false;
+
+    UF uf(n);
+
+    for (const vector<int>& edge : edges)
+      uf.union_(edge[0], edge[1]);
+
+    return uf.getSize() == 1;
+  }
+};
+
+
+
+
 
    class Solution {
 public:
