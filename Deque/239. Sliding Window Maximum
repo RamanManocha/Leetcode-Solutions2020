@@ -25,6 +25,37 @@ Constraints:
 
 
 
+Intuition
+Use a monotonic deque to store decreasing numbers.
+
+For each new element, we do the following things:
+
+Pop back until the last element in the deque is greater than the current element.
+Pop front if the first element is outdated (out of the window).
+Push back the current element.
+The maximum of each segment is the first element in the deque when that segment is visited.
+
+
+https://binarysearch.com/problems/Mad-Max/editorials/1951564
+
+
+
+
+vector<int> solve(vector<int>& nums, int k) {
+    deque<int> dq;
+    vector<int> ans;
+    for (int i = 0; i < nums.size(); ++i) {
+        while (!dq.empty() && nums[dq.back()] <= nums[i]) dq.pop_back();
+        dq.push_back(i);
+        if (!dq.empty() && i - dq.front() >= k) dq.pop_front();
+        if (i >= k - 1) ans.emplace_back(nums[dq.front()]);
+    }
+    return ans;
+}
+
+
+
+
 
 class Solution {
 public:
