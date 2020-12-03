@@ -1,6 +1,8 @@
 Flight Itinerary
 
 
+https://binarysearch.com/problems/Flight-Itinerary
+
 
 Question 143 of 866
 You are given a list of flights that were taken, represented as origin to destination airport pairs. Given that this list was shuffled, find all the airports that were visited in the correct order.
