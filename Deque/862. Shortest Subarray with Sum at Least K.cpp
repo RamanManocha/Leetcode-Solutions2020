@@ -13,6 +13,13 @@ Return the length of the shortest, non-empty, contiguous subarray of A with sum 
 If there is no non-empty subarray with sum at least K, return -1.
 
  
+ 
+ 
+ 
+ https://www.youtube.com/watch?v=_JDpJXzTGbs&ab_channel=TechLifeWithShivank
+
+
+
 
 Example 1:
 
@@ -30,6 +37,11 @@ Output: 3
 
 
 
+ 
+ We will maintain the queue in increasing order which means the front part  is going to have the smallest element whereas the end part is going to
+ 
+ contain the largest element
+ 
 
 class Solution {
 public:
@@ -51,6 +63,8 @@ public:
             }
     // if it is decreasing order pop from the back
             //trickiest part here
+         
+         
             while(!q.empty() && prefix_sum[i] - prefix_sum[q.back()] <=0 )
                 q.pop_back();
             
