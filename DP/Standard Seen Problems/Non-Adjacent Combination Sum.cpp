@@ -2,6 +2,11 @@ Non-Adjacent Combination Sum
 Question 3 of 4
 You are given a list of positive integers nums and an integer k. Return whether there exists a combination of integers in nums such that their sum is k and none of those elements are adjacent in the original list.
 
+    
+    
+    
+   https://binarysearch.com/room/Weekly-Contest-34-aDD9ZHbeO9?questionsetIndex=2
+
 Constraints
 
 n * k ≤ 100,000 where n is the length of nums
