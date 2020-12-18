@@ -41,7 +41,24 @@ We can go from 0 to 3 by following this path [0, 3] and the edge's weight is at 
 
 
 
+Short solution using Union-Find algorithm.
+The main idea is to sort the edges and queries by weights then join nodes and check if the nodes are connected i.e. have the same parent node in disjoint-sets.
 
+Implementation
+
+
+
+At first edges and queries are sorted by its weights.
+In the very beginning all nodes are disconnected. Then starting from edges with smallest weight the nodes are connected (Union) while the weight of edge 
+is less or equal to the weight in the current query.
+If the nodes have the same parent node for the current query then the query is counted.
+
+Time Complexity
+\mathcal{O}(n log(n) + m log(m))O(nlog(n)+mlog(m)) - since inverse Ackermann function is very slow growing so complexity is determined by the sorting edges 
+and queries
+
+Space Complexity
+\mathcal{O}(n)O(n) - space used for Union-Find: parents and ranks
 
 
 
