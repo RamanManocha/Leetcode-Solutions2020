@@ -57,13 +57,13 @@ Space Complexity
 int lower(vector<int>& b, int x) {
     int l = 0, r = b.size() - 1;
     int lw = b[0];
-    while (l <= r) {
+    while (l < r) {
         int mid = (l + r) / 2;
         if (b[mid] <= x) {
             lw = b[mid];
             l = mid + 1;
         } else {
-            r = mid - 1;
+            r = mid ;
         }
     }
     return lw;
@@ -71,11 +71,11 @@ int lower(vector<int>& b, int x) {
 int upper(vector<int>& b, int x) {
     int l = 0, r = b.size() - 1;
     int lw = b[r];
-    while (l <= r) {
+    while (l < r) {
         int mid = (l + r) / 2;
         if (b[mid] >= x) {
             lw = b[mid];
-            r = mid - 1;
+            r = mid ;
         } else {
             l = mid + 1;
         }
