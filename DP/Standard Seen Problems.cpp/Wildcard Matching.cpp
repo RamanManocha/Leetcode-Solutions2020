@@ -49,6 +49,57 @@ Output: true
 Explanation: '*' matches any sequence.
 
 
+	
+	
+	
+	
+Let's briefly summarize the idea of DP. We define the state P[i][j] to be whether s[0..i) matches p[0..j). The state equations are as follows:
+
+P[i][j] = P[i - 1][j - 1] && (s[i - 1] == p[j - 1] || p[j - 1] == '?'), if p[j - 1] != '*';
+P[i][j] = P[i][j - 1] || P[i - 1][j], if p[j - 1] == '*'.
+	
+	
+	
+	
+	
+	
+	
+	class Solution {
+public:
+    bool isMatch(string s, string p) {
+        vector<int> pattern(p.size() + 1, 0);
+        vector<vector<int>> dp(s.size() + 1, pattern);
+        
+        dp[0][0] = true;
+        for(int j = 1; j < p.size() + 1; ++j){
+            if(p[j-1] == '*') dp[0][j] = dp[0][j-1];    
+        }
+        
+        for(int i = 1; i < s.size() + 1; ++i){
+            for(int j = 1; j < p.size() + 1; ++j){
+                int s_index = i-1;
+                int p_index = j-1;
+                if(s[s_index] == p[p_index] || p[p_index] == '?'){
+                    dp[i][j] = dp[i-1][j-1];
+                }
+                if(p[p_index] == '*'){
+                    dp[i][j] = dp[i-1][j] || dp[i][j-1];
+                }
+            }
+        }
+        return dp[s.size()][p.size()];
+    }
+};
+	
+	
+	
+	
+	
+	
+	
+	
+	
+// OPTIMISED CODE
 
 class Solution {
  public:
