@@ -78,16 +78,63 @@ if node is right bound, add it after 2 child - post order;
 
 
 
+Approach:
+
+
+The boundary of tree can be split into 4 parts:
+
+left boudnary (do not count leaves here);
+leaves of left subtree;
+leaves of right subtree;
+right boundary (do not count leaves here).
+
+
+class Solution {
+public:
+     bool isLeaf(TreeNode *root){
+        return root->left == NULL && root->right == NULL;
+    }
+    void rightboundaryandleaves(TreeNode *root, bool is_boundary, vector<int> &res){
+        if (root != NULL) {
+            rightboundaryandleaves(root->left, is_boundary && root->right == NULL, res);
+            rightboundaryandleaves(root->right, is_boundary,res);
+             if (is_boundary || isLeaf(root))
+                res.push_back(root->val);
+        }    
+    }
+
+    void leftboundaryandleaves(TreeNode *root, bool is_boundary, vector<int> &res){
+        if (root != NULL) {
+             if (is_boundary || isLeaf(root))
+               res.push_back(root->val);
+            leftboundaryandleaves(root->left, is_boundary,res);
+            leftboundaryandleaves(root->right, is_boundary && root->left == NULL, res);
+        }
+    }
+    vector<int> boundaryOfBinaryTree(TreeNode* root) {
+        vector<int> res;
+        if (root == NULL)
+           return {};
+        if (root)
+            res.push_back(root->val);
+        leftboundaryandleaves(root->left, true, res);
+        rightboundaryandleaves(root->right, true, res);
+        
+        return res;
+    }
+};
 
 
 
 
 
+Let's merely get the nodes from the left boundary, the right boundary, and the leaves, in counter-clockwise order.
 
+To get nodes from the left boundary, we start from root.left and move left if we can, else right, until we can't move anymore. The right boundary is similar.
 
+To get nodes from the leaves, we DFS until we hit a leaf (until node.left and node.right are both None). We should take care to add to our stack in the order (right, left) so that they are popped in the order (left, right).
 
-
-
+Now armed with all the nodes we could visit, let's visit them in order. As we visit a node, we should skip over ones we've seen before (comparing node objects by pointer, not node.val), and otherwise add node.val to our answer.
 
 
 
