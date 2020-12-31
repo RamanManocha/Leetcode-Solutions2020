@@ -46,3 +46,47 @@ public:
 };
 
 
+
+
+
+
+
+class Solution {
+public:
+    int lengthOfLongestSubstringKDistinct(string s, int k) {
+        int freq[256] = {0};  // frequency counter
+        int left = 0, max_len = 0, unique_chars = 0;
+        
+        for (int right = 0; right < s.size(); ++right) {
+            char right_char = s[right];
+            if (freq[right_char] == 0) {
+                // increment unique_chars only for the first
+                // occurence of a character in our window
+                ++unique_chars;
+            }
+            // expand window to the right
+            ++freq[right_char];
+            
+            // if number if unique characters exceeds k
+            // we need to shrink the window
+            while (unique_chars > k) {
+                char left_char = s[left++];
+                --freq[left_char];
+                // decrement unique_chars only if all instances
+                // of a single character are no longer in our window
+                if (freq[left_char] == 0) {
+                    --unique_chars;
+                }
+            }
+            
+            // right - left + 1 = length of the current substring
+            max_len = max(max_len, right - left + 1);
+        }
+        
+        return max_len;
+    }
+};
+
+
+
+
