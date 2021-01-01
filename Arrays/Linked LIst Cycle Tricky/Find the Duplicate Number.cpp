@@ -1,10 +1,12 @@
 
 287. Find the Duplicate Number
-Medium
 
-6375
 
-701
+
+https://www.youtube.com/watch?v=32Ll35mhWg0&ab_channel=takeUforward
+
+
+
 
 Add to List
 
