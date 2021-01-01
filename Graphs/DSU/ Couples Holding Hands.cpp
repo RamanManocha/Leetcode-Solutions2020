@@ -5,11 +5,7 @@ https://leetcode.com/problems/couples-holding-hands/submissions/
 
 
 765. Couples Holding Hands
-Hard
 
-888
-
-64
 
 Add to List
 
@@ -34,8 +30,67 @@ Note:
 
 len(row) is even and in the range of [4, 60].
 row is guaranteed to be a permutation of 0...len(row)-1
+    
+    
+    
+  We can number each pair of socks with 0,1,\dots,N-10,1,…,N−1. Then sock 00 and 11 belongs to pair 00, 22 and 33 belongs to pair 11, and generally 
+   sock ii belongs to pair i/2i/2.
+
+In the end, index 00 and 11 will be the first pair, and 22 and 33 the second, etc.
+
+Obviously, those positions which are already a pair will stay untouched. Then for other positions, their current 
+    socks must come from two different pairs. 
+    Say they come from pair uu and pair vv. We can then add an undirected edge between uu and vv. After the processing, the unpaired pairs will be grouped 
+    into several connected components, and each connected component will exactly be a cycle. 
+    It takes sz-1sz−1 swaps for a cycle with szsz nodes, so we can calculated the total swaps we need accordingly.
 
 
+        
+        
+        
+        
+        
+        
+        
+ vector<int> p, sz;
+int find(int u) {
+    return p[u] == u ? u : p[u] = find(p[u]);
+}
+void connect(int u, int v) {
+    int pu = find(u), pv = find(v);
+    if (pu == pv) return;
+    if (sz[pu] >= sz[pv]) {
+        p[pv] = pu;
+        sz[pu] += sz[pv];
+    } else {
+        p[pu] = pv;
+        sz[pv] += sz[pu];
+    }
+}
+
+int solve(vector<int>& row) {
+    int n = row.size() / 2;
+    p = vector<int>(n);
+    for (int i = 0; i < n; ++i) p[i] = i;
+    sz = vector<int>(n, 1);
+    for (int i = 0; i < n; ++i) {
+        int u = row[i << 1] / 2;
+        int v = row[i << 1 | 1] / 2;
+        connect(u, v);
+    }
+    int ans = 0;
+    for (int i = 0; i < n; ++i)
+        if (find(i) == i) ans += sz[i] - 1;
+    return ans;
+}
+    
+        
+        
+        
+        
+        
+        
+        
 class Solution {
 
 public:
