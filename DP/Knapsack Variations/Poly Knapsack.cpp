@@ -1,5 +1,9 @@
 
 Poly Knapsack
+
+
+https://binarysearch.com/problems/Poly-Knapsack
+
 Question 438 of 987
 You are given two lists of integers weights and values which have the same length and an integer capacity. weights[i] and values[i] represent the weight and value of the ith item.
 
