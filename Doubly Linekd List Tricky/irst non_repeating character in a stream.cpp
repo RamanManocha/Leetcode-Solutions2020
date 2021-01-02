@@ -2,7 +2,7 @@
 https://www.geeksforgeeks.org/find-first-non-repeating-character-stream-characters/
 
 
-
+https://www.youtube.com/watch?v=KnWqCfIfHX0&t=346s&ab_channel=TECHDOSE
 
 
 Approach:
