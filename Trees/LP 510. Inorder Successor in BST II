@@ -33,7 +33,8 @@ Predecessor = "before node", i.e. the previous node in the inorder traversal, or
 
 
 
-Time complexity :, where HH is the height of the tree. That means \mathcal{O}(\log N)O(logN) in the average case, and \mathcal{O}(N)O(N) in the worst case, where NN is the number of nodes in the tree.
+Time complexity :, where HH is the height of the tree. That means \mathcal{O}(\log N)O(logN) in the average case, and \mathcal{O}(N)O(N) in the worst case, 
+where NN is the number of nodes in the tree.
 Space complexity :  since no additional space is allocated during the calculation.
 
 
@@ -50,9 +51,6 @@ parent.
 
 
 
-
-
-
   Node* inorderSuccessor(Node* node) {
         if(!node) return nullptr;
         if(node->right){
@@ -64,7 +62,7 @@ parent.
             return node->parent;
         }
         else if(node->parent){
-            while(node->parent&&node == node->parent->right){
+            while(node->parent  && node == node->parent->right){
                 node = node->parent;
             }
             if(!node->parent) return nullptr;
