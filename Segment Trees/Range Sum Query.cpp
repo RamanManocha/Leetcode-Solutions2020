@@ -36,8 +36,10 @@ You may assume the number of calls to update and sumRange function is distribute
 
 
 
+ 
+ We don't use segment tree  in case we have frequent update operations
 
-
+Parent is i - 
 
 
 
