@@ -39,6 +39,35 @@ It is guaranteed that the answer fits into a 32-bit signed integer (ie. it is le
 
 
 
+	
+	Approach towards the solution is to partition the leaf nodes at all possible places, calculate the cost for each partition and return the minimum sum of both part.
+
+Non-leaf cost from any subarray from i to j (product of two maximum val) is always same. No matter how you partition the subarray.
+
+We split the leaf nodes Ai, Ai+1, ..... , Aj-1, Aj between Ak and Ak+1 where i<k<j then compute the sub problem for Ai, .... , Ak and Ak+1, ... , Aj and add both result plus the cost of multiplying two largest value in Ai, ... , Aj.
+
+         leaf nodes :  [3,4,2,5,3,7]
+         We can partition it in following ways:
+         [3] | [4,2,5,3,7]
+         [3,4] | [2,5,3,7]
+         [3,4,2] | [5,3,7]
+         [3,4,2,5] | [3,7]
+         [3,4,2,5,3] | [7]
+Since we can see overlapping subproblems easily.
+1. [3,4] | [2,5,3,7] ---> [3,4] || [2] | [5,3,7]
+2. [3,4,2] | [5,3,7] 
+
+[5,3,7] is example of overlapping subproblem.
+We can use a 2D array to store minimum non-leaf sum from any index i to j to avoid solving repeatedly.
+
+Question is similar like MIXTURES on SPOJ, this explaination may help.
+		 
+		 
+		 
+		 
+		 
+		 
+		 
 
 class Solution {
 public:
