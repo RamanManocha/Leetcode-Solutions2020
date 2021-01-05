@@ -42,6 +42,19 @@ Constraints:
 0 <= nums[i] <= 1000
 
 
+ 
+ 
+ 
+ This problem is a little tricky at first glance. However, if you have finished the House Robber problem, this problem can simply be decomposed into two 
+ House Robber problems.
+Suppose there are n houses, since house 0 and n - 1 are now neighbors, we cannot rob them together and thus the solution is now the maximum of
+
+Rob houses 0 to n - 2;
+Rob houses 1 to n - 1.
+ 
+ 
+ 
+ 
 
 class Solution {
 public:
