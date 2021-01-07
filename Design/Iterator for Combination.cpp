@@ -47,7 +47,15 @@ It's guaranteed that all calls of the function next are valid
 
 
 
+Approach:
 
+
+1. Generate all the combinations form left to rigth and add into the queue when length is equals to the combinationLength.
+2. next simply poll from the queue and reutrn.
+3. hasNext return true until queue is not empty.
+
+    
+    
 
 
 
