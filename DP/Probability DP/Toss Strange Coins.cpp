@@ -53,6 +53,10 @@ P2 = (probability of having j - 1 coins till i) * (probability of having a head)
 Therefore, the probability of having j heads till i-th coin inclusively will be
 
 P = P1 + P2;
+
+
+
+This problem is similar to Knapsack, either we will take that coin of certain probability and decreaase target by one or we won't take it.
 class Solution {
 public:
     double probabilityOfHeads(vector<double>& prob, int target) {
