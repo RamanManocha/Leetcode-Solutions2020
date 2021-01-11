@@ -72,3 +72,36 @@ public:
         return dp[nums.size()][sum]*pow(2,cnt);
     }
 };
+
+
+
+
+
+
+
+
+
+
+int solve(vector<int>& nums, int target) {
+    int n = nums.size();
+    int sum = accumulate(nums.begin(), nums.end(), 0);
+
+    if (target > sum || (sum + target) % 2) return 0;
+
+    int k = (sum + target) / 2;
+
+    vector<int> dp(k + 1, 0);
+
+    dp[0] = 1;
+
+    for (auto i : nums) {
+        for (int j = k; j >= i; j--) {
+            dp[j] += dp[j - i];
+        }
+    }
+
+    return dp[k];
+}
+
+
+
