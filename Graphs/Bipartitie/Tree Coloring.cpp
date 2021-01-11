@@ -2,6 +2,12 @@
 Tree Coloring
 You are given a binary tree root where the value of each node represents its color. In the tree there are at most 2 colors. Return whether it's possible to swap the colors of the nodes any number of times so that no two adjacent nodes have the same color.
 
+    
+    
+    https://binarysearch.com/problems/Tree-Coloring
+
+
+
 Constraints
 
 n ≤ 100,000 where n is the number of nodes in root
