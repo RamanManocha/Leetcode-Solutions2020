@@ -3,6 +3,9 @@ Square Submatrix Sum Below Target
 
 You are given a two-dimensional list of non-negative integers matrix and a non-negative integer target. Return the area of the largest square sub-matrix whose sum is less than or equal to target. If there's no such matrix, return 0.
 
+    
+    https://binarysearch.com/problems/Square-Submatrix-Sum-Below-Target/editorials/3404696
+
 Constraints
 
 1 ≤ n, m ≤ 250 where n and m are the number of rows and columns in matrix
