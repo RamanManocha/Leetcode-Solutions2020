@@ -1,5 +1,12 @@
 Minimum removals required to convert given array to a Mountain Array
-Last Updated: 10-12-2020
+
+https://leetcode.com/problems/minimum-number-of-removals-to-make-mountain-array/
+
+
+
+
+
+
 Given an array arr[] consisting of N integers​​​, the task is to find the minimum number of array elements required to be removed to to make the given array a mountain array.
 
 A mountain array has the following properties:
@@ -41,6 +48,86 @@ One of the possible solution can be {4, 6, 5} i.e. removing 3 (arr[1]) and 4(arr
 
 
 
+class Solution {
+public:
+    int minimumMountainRemovals(vector<int>& nums) {
+        vector<int>l(nums.size(),1);
+        vector<int>r(nums.size(),1);
+        int n=nums.size();
+        for(int i=1;i<n;i++)
+        {
+            for(int j=0;j<i;j++)
+            {
+                if(nums[i]>nums[j] && l[i]<l[j]+1)
+                    l[i]=l[j]+1;
+            }
+        }
+        
+        for(int i=n-2;i>=0;i--)
+        {
+            for(int j=n-1;j>i;j--)
+            {
+                if(nums[i]>nums[j] && r[i]<r[j]+1)
+                    r[i]=r[j]+1;
+            }
+        }
+        
+        int ans=0;
+        for(int i=1;i<n-1;i++)
+        {
+            if(l[i]+r[i]-1>ans)
+                ans=l[i]+r[i]-1;
+        }
+        cout<<ans<<endl;
+        return nums.size()-ans;
+    }
+};
+
+
+
+
+
+	class Solution {
+	public:
+		int minimumMountainRemovals(vector<int>& nums) {
+			int n = nums.size();
+			multiset<int> lis;
+			vector<int> dp1(n),dp2(n);
+			for(int i = 0; i < nums.size(); i++)
+			{
+				if(lis.empty())lis.insert(nums[i]);
+				else
+				{
+					auto it = lis.lower_bound(nums[i]);
+					if(it != lis.end())lis.erase(it);
+					lis.insert(nums[i]);
+				}
+				dp1[i] = i + 1 - lis.size();
+			}
+
+			lis.clear();
+			for(int i = nums.size()-1; i >=0; i--)
+			{
+
+				if(lis.empty())lis.insert(nums[i]);     
+				else
+				{
+					auto it = lis.lower_bound(nums[i]);
+					if(it != lis.end())lis.erase(it);  
+					lis.insert(nums[i]);
+				} 
+				dp2[i] = nums.size()-i-lis.size();
+			}
+
+			int ans = n;
+
+			for(int i = 1; i < nums.size()-1; i++)
+			{
+				ans = min(ans,dp1[i] + dp2[i]);
+			}
+			return ans;
+		}
+	};
 
 
 
