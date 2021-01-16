@@ -76,7 +76,12 @@ The analysis above was for the case tx > ty, but the case ty > tx is similar. Wh
 
 
 
+Complexity Analysis
 
+Time Complexity: O(\log(\max{(tx, ty)}))O(log(max(tx,ty))). The analysis is similar to the analysis of the Euclidean
+algorithm, and we assume that the modulo operation can be done in O(1)O(1) time.
+
+Space Complexity: O(1)O(1)
 
 
 
