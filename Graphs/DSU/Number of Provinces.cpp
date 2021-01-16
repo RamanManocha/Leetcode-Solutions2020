@@ -41,7 +41,86 @@ isConnected[i][i] == 1
 isConnected[i][j] == isConnected[j][i]
 
 
+dfs approach:
 
+
+
+
+Connected Components in a bidirectional Graph
+As given in the question, we have n nodes. So we will make a visited array for n nodes. then we will start with one node, and mark all its connected nodes as visited=true. So we will count only how many times we have to start this process. that will be our answer.
+
+int findCircleNum(vector<vector<int>>& M) {
+	int n=M.size(),ans=0;
+	if(n==0) return 0;
+
+	vector<bool>vis(n,false);
+
+	for(int i=0;i<n;i++)
+	{
+		if(!vis[i])
+		{
+			ans++;
+			dfs(M,vis,i);
+		}
+	}
+	return ans;
+}
+
+void dfs(vector<vector<int>>& M, vector<bool>& vis, int i)
+{
+	vis[i]=true;
+	for(int j=0;j<M.size();j++)
+		if(M[i][j]==1 && !vis[j])
+			dfs(M,vis,j);
+}
+
+
+
+
+
+
+class Solution {
+public:
+    int parent[201];
+    
+    int findCircleNum(vector<vector<int>>& M) {
+        int i, j, groups = 0, n = M.size();
+        make_set(n);
+          
+        for(i = 0; i < n; i++) {
+            for(j = i + 1; j < n; j++) {
+                if(M[i][j])
+                    union_sets(i, j);
+            }
+        }
+        
+        for(i = 0; i < n; i++) {
+            if(i == parent[i])
+                groups++;
+        }
+        
+        return groups;
+    }
+
+private:
+    void make_set(int n) {
+        for(int i = 0; i < n; i++) 
+            parent[i] = i;
+    }
+    
+    int find_set(int v) {
+        if (v == parent[v])
+            return v;
+        return parent[v] = find_set(parent[v]);
+    }
+    
+    void union_sets(int a, int b) {
+        a = find_set(a);
+        b = find_set(b);
+        if (a != b)
+            parent[b] = a;
+    }
+};
 
 
 class Solution {
