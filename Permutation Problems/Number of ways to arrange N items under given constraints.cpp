@@ -1,5 +1,8 @@
 
+Came in INterview
 
+
+YET TO UNDERSTAND
 https://www.geeksforgeeks.org/number-of-ways-to-arrange-n-items-under-given-constraints/
 
 
