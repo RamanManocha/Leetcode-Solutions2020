@@ -26,6 +26,8 @@ Naive Approach: The naive approach for this problem is to simply check for all t
 Time complexity: O(N3) 
 
 
+Basically what we need to do is to make all array elements distinct to make them pair wise distinct
+
 
 Efficient Approach:
 
