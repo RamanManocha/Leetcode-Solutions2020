@@ -3,6 +3,9 @@
 Maximum Product Path in Matrix
 
 
+https://binarysearch.com/problems/Maximum-Product-Path-in-Matrix
+
+
 You are given a two-dimensional list of integers matrix. You are currently at the top left corner and want to move to the bottom right corner. In each move, you can move down or right.
 
 Return the maximum product of the cells visited by going to the bottom right cell. If the result is negative, return -1. Otherwise, mod the result by 10 ** 9 + 7.
