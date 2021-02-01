@@ -42,6 +42,37 @@ There are total n^2n
 Space Complexity
 At most nn elements will be stored in the heaps, so \mathcal{O}(n)O(n).
 
+    
+    
+    int solve(vector<int>& nums) {
+    int ret = 0;
+    for (int i = 0; i < nums.size(); i++) {
+        priority_queue<int> maxq;
+        priority_queue<int, vector<int>, greater<int>> minq;
+        for (int j = i; j < nums.size(); j++) {
+            maxq.push(nums[j]);
+            while (maxq.size() - minq.size() >= 2) {
+                minq.push(maxq.top());
+                maxq.pop();
+            }
+            while (minq.size() && maxq.top() > minq.top()) {
+                int a = maxq.top();
+                maxq.pop();
+                int b = minq.top();
+                minq.pop();
+                maxq.push(b);
+                minq.push(a);
+            }
+            if (i % 2 == j % 2) {
+                ret += maxq.top();
+            }
+        }
+    }
+    return ret;
+}
+
+
+
 int solve(vector<int>& nums) {
     int sz = nums.size(), res = 0;
 
