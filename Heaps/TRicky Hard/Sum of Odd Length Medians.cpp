@@ -1,6 +1,10 @@
 
 
 
+
+https://binarysearch.com/problems/Sum-of-Odd-Length-Medians
+
+
 Sum of Odd Length Medians
 Given a list of integers nums, return the sum of the medians of every odd-length sublist of the list.
 
