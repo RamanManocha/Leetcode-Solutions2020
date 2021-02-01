@@ -106,5 +106,27 @@ int main()
 } 
 // This solution is contributed by Aditya Goel 
 
+vector<int> solve(vector<int>& nums, int k) {
+    unordered_map<int, int> mp;
+    for (int i = 0; i < k; i++) {
+        mp[nums[i]]++;
+    }
+    vector<int> vec;
+    vec.push_back(mp.size());
+    int p = 0, n = nums.size();
+    mp[nums[p]]--;
+    if (mp[nums[p]] == 0) {
+        mp.erase(nums[p]);
+    }
+    p = 1;
+    for (int i = k; i < n; i++) {
+        mp[nums[i]]++;
+        vec.push_back(mp.size());
+        mp[nums[p]]--;
+        if (mp[nums[p]] == 0) mp.erase(nums[p]);
+        p++;
+    }
+    return vec;
+}
 
 
