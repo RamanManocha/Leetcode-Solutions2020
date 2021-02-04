@@ -9,7 +9,8 @@ Medium
 Add to List
 
 Share
-There are n cities. Some of them are connected, while some are not. If city a is connected directly with city b, and city b is connected directly with city c, then city a is connected indirectly with city c.
+There are n cities. Some of them are connected, while some are not. If city a is connected directly with city b, and city b is connected directly with city c, then city a is 
+connected indirectly with city c.
 
 A province is a group of directly or indirectly connected cities and no other cities outside of the group.
 
@@ -46,8 +47,84 @@ dfs approach:
 
 
 
+
+Approach #1 Using Depth First Search[Accepted]
+Algorithm
+
+The given matrix can be viewed as the Adjacency Matrix of a graph. By viewing the matrix in such a manner, our problem reduces to the problem of
+finding the number of connected components in an undirected graph. In order to understand the above statement, consider the example matrix below:
+
+M= [1 1 0 0 0 0
+
+    1 1 0 0 0 0
+
+    0 0 1 1 1 0
+
+    0 0 1 1 0 0
+
+    0 0 1 0 1 0
+
+    0 0 0 0 0 1]
+
+If we view this matrix M as the adjancency matrix of a graph, the following graph is formed
+
+
+
+
+
+
+In this graph, the node numbers represent the indices in the matrix M and an edge exists between the nodes numbered ii and jj, if there is a 1 at the corresponding 
+M[i][j]M[i][j].
+
+In order to find the number of connected components in an undirected graph, one of the simplest methods is to make use of Depth First Search starting from every node.
+	We make use of visitedvisited array of size NN(MM is of size NxNNxN). This visited[i]visited[i] element is used to indicate that the i^{th}i 
+th
+  node has already been visited while undergoing a Depth First Search from some node.
+
+To undergo DFS, we pick up a node and visit all its directly connected nodes. But, as soon as we visit any of those nodes, we recursively apply the same process to them as
+well. Thus, we try to go as deeper into the levels of the graph as possible starting from a current node first, leaving the other direct neighbour nodes to be visited later on.
+	
+	
+	
+	
+	
+	
+	int findGangMaster(int x, vector<int>& bossOf) {
+	return bossOf[x] == x ? x : findGangMaster(bossOf[x], bossOf);
+}
+int findCircleNum(vector<vector<int>>& M) {
+	if (M.empty()) return 0;
+	int len = M.size();
+	vector<int> bossOf(len, 0);  // save the boss of user i
+	// initially, i is the boss of himself
+	for (int i = 0; i < len; i++)    
+		bossOf[i] = i;
+	// initially, every gang consists of one people
+	int numOfGangs = len;  
+	for (int i = 0; i < len; i++) {
+		for (int j = i + 1; j < len; j++) {   
+			if (M[i][j] > 0) {
+				int master1 = findGangMaster(i, bossOf);
+				int master2 = findGangMaster(j, bossOf);
+				if (master1 != master2) {
+					// now merge two gangs, because of the friendship of i & j
+					bossOf[master2] = master1;
+					numOfGangs--;
+				}
+			}
+		}
+	}
+	return numOfGangs;
+}
+
+
+
+
+
+
 Connected Components in a bidirectional Graph
-As given in the question, we have n nodes. So we will make a visited array for n nodes. then we will start with one node, and mark all its connected nodes as visited=true. So we will count only how many times we have to start this process. that will be our answer.
+As given in the question, we have n nodes. So we will make a visited array for n nodes. then we will start with one node, and mark all its connected nodes as visited=true.
+	So we will count only how many times we have to start this process. that will be our answer.
 
 int findCircleNum(vector<vector<int>>& M) {
 	int n=M.size(),ans=0;
@@ -73,6 +150,32 @@ void dfs(vector<vector<int>>& M, vector<bool>& vis, int i)
 		if(M[i][j]==1 && !vis[j])
 			dfs(M,vis,j);
 }
+
+
+
+class Solution {
+public:
+    int findCircleNum(vector<vector<int>>& M) {
+        if (M.empty()) return 0;
+        int n = M.size();
+        vector<bool> visited(n, false);
+        int groups = 0;
+        for (int i = 0; i < visited.size(); i++) {
+            groups += !visited[i] ? dfs(i, M, visited), 1 : 0;
+        }
+        return groups;
+    }
+
+private:
+    void dfs(int i, vector<vector<int>>& M, vector<bool>& visited) {
+        visited[i] = true;
+        for (int j = 0; j < visited.size(); j++) {
+            if (i != j && M[i][j] && !visited[j]) {
+                dfs(j, M, visited);
+            }
+        }
+    }
+};
 
 
 
