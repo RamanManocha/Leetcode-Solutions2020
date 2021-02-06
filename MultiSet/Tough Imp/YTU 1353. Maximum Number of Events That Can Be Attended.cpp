@@ -55,10 +55,59 @@ events[i].length == 2
 
 Intuition:
 
-Let's say you are on day i right now. What is the best option you have? See what all events are on, and choose the one that ends the earliest so that you can attend the later ending event afterwards. Think of it like, why would you leave an event of short duration. It'll anyways get over soon. You can attend the later ending event after this if possible. Right?
+Let's say you are on day i right now. What is the best option you have? See what all events are on, and choose the one that ends the earliest so that you can attend the
+	later ending event afterwards. Think of it like, why would you leave an event of short duration. It'll anyways get over soon. You can attend the later ending event
+	after this if possible. Right?
 How to see which event is on? Maintain a multiset and store the end days of the events as you iterate. So sort the events by the start days.
 Do not forget to remove the events which have got over on ith day.
 
+
+		
+1. Sort the events by the start time and in case of tie by the end time in ascending order.
+
+2. Loop over the sorted events. Attend as much as you can and keep the last day occupied. When you try to attend new event keep in 
+mind the first day you can attend a new event in 
+
+
+
+
+
+
+bool arrange(vector<int> & v1, vector<int> &v2){
+    return v1[1] < v2[1];
+}
+class Solution {
+public:
+    int maxEvents(vector<vector<int>>& events) {
+        if(events.size() == 0 ){
+            return 0;
+        }
+        int i, j, noOfEvents = 0;
+        set<int> s;
+        sort(events.begin(),events.end(),arrange);
+        int n = events.size();
+        int lastDay = events[n-1][1];
+        for(i = 0; i <= lastDay; i++){
+            s.insert(i);
+        }
+	
+	
+	 # We will check the start in unique day set. if it is not present, we simply add this.
+        # else, we will check next start, and will add all start date until we reach to finish date
+	
+	
+        for(i = 0; i < events.size(); i++){
+            auto day = s.lower_bound(events[i][0]);
+            if(day == s.end() || *day > events[i][1]){
+                continue;
+            }else{
+                noOfEvents++;
+                s.erase(day);
+            }
+        }
+        return noOfEvents;
+    }
+};
 
 
 
