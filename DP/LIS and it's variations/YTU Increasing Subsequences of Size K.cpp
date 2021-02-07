@@ -1,6 +1,12 @@
 Increasing Subsequences of Size K
 Given a list of integers nums and an integer k, return the number of subsequences of size k that are strictly increasing.
 
+    
+    https://binarysearch.com/problems/Increasing-Subsequences-of-Size-K
+
+
+
+
 Mod the result by 10 ** 9 + 7.
 
 Constraints
@@ -16,8 +22,20 @@ Output
 Explanation
 We have the following increasing subsequences of size 2: [1, 2], [2, 3], [1, 3]
 
+https://www.geeksforgeeks.org/count-number-increasing-subsequences-size-k/
 
 
+Approach: The idea is to use Dynamic Programming by define 2D matrix, say dp[][]. dp[i][j] stores the count of increasing subsequences of size i ending with 
+element arr[j]. So dp[i][j] can be defined as:
+
+dp[i][j] = 1, where i = 1 and 1 <= j <= n
+dp[i][j] = sum(dp[i-1][j]), where 1 < i <= k, i <= j <= n and arr[m] < arr[j] for (i-1) <= m < j.
+
+
+    
+    
+    
+    
 
 int solve(vector<int>& nums, int k) {
     int n = (int)nums.size(), dp[k][n], ans = 0, mod = 1e9 + 7;
