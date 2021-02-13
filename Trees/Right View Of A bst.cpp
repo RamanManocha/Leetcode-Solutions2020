@@ -18,6 +18,33 @@ Explanation:
   5     4       <---
 
 
+      
+      
+ Algorithm
+
+Initiate the list of the right side view rightside.
+
+Initiate the queue by adding a root.
+
+While the queue is not empty:
+
+Write down the length of the current level: levelLength = queue.size().
+
+Iterate over i from 0 to level_length - 1:
+
+Pop the current node from the queue: node = queue.poll().
+
+If i == levelLength - 1, then it's the last node in the current level, push it to rightsize list.
+
+Add first left and then right child node into the queue.
+
+Return rightside
+
+
+
+
+
+
 
 class Solution {
 public:
