@@ -34,6 +34,28 @@ down, right, down, right
 
 
 Intuition
+DP using dp[i][j][k] that denotes that at position matrix[i][j] there how many of each combination is possible. This is done by storing a defaultdict that stores how many
+of score x can be achieved at that position.
+
+Implementation
+For each cell dp[i][j], update the dictionary to use the above dp[i-1][j] and to the left cell dp[i][j-1], based on if the cell is a 0 or 1. 0 means it copies it over 
+directly (no change to number). 1 means it copies over the values from the previous value (if possible ways to get 1 is 4, possible ways to get to 2 is now 4 since the cell
+has a 1).
+
+Time Complexity
+\mathcal{O}(n^3)O(n 
+3
+ ) since it uses the matrix dimensions and is bounded by the number we want to reach k
+
+Space Complexity
+\mathcal{O}(n^3)O(n 
+3
+ ) since it uses the matrix dimensions and is bounded by the number we want to reach k
+ 
+ 
+ 
+
+Intuition
 Think of recursion + Memotisation.
 Here we have 3 changing states i.e x,y and current sum.
 
