@@ -2,6 +2,8 @@
 https://leetcode.com/problems/basic-calculator-iii/
 
 
+https://leetcode.com/problems/basic-calculator-iii/discuss/757809/C%2B%2B-Explained-Template-for-Basic-Calculator-I-II-III
+
 772. Basic Calculator III
 Hard
 
