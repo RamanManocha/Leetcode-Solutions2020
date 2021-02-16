@@ -5,6 +5,33 @@ Very Very Important CDC
 
 
 
+Intuition and Algorithm
+
+Let's try to check separately whether each word words[i] is a subsequence of S.
+
+For every such word, we try to find the first occurrence of word[0] in S, then from that point on try to find the first occurrence of word[1], and so on.
+
+
+Complexity Analysis
+
+Time Complexity: O(\text{words.length} * S\text{.length} + \sum_i \text{words[i].length})O(words.length∗S.length+∑ 
+i
+​	
+ words[i].length). For each word, our subseq check on word words[i] may take time complexity O(S\text{.length} + \text{words[i].length})O(S.length+words[i].length).
+
+Space Complexity: O(1)O(1). (In Java, our space complexity is O(S\text{.length} + \text{max(words[i].length)})O(S.length+max(words[i].length)), but can be made to be 
+O(1)O(1) with a pointer based implementation.)
+
+
+	
+	
+	
+	
+	
+	
+	
+
+
 
 792. Number of Matching Subsequences
 Medium
