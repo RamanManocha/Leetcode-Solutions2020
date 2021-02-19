@@ -151,6 +151,85 @@ class Solution {
 
 
 
+                                                 
+                                                 
+                                                 
+  class Solution {
+public:
+    vector<vector<int>> getSkyline(vector<vector<int>>& buildings) {
+        vector<vector<int>> skyline;
+        map<int, vector<pair<int, int>>> map; // key : pos, value : vector of <height, start|end> pairs
+        for (auto& building : buildings) {
+            map[building[0]].push_back({building[2], 0}); // add startpoint
+            map[building[1]].push_back({building[2], 1}); // add endpoint
+        }
+        multiset<int> q;
+        for (auto& [pos, heights] : map) {
+            for (auto& [height, type] : heights) {
+                if (type == 0) q.insert(height);
+                else q.erase(q.find(height));
+            }
+            int newHeight = q.empty() ? 0 : *q.rbegin();
+            if (!skyline.empty() && skyline.back()[1] == newHeight) continue;
+            else skyline.push_back(vector<int>({pos, newHeight}));
+        }
+        return skyline;
+    }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Solution {
+public:
+    vector<vector<int>> getSkyline(vector<vector<int>>& buildings) {
+        vector<pair<int, int>> edges;
+        int left, right, height;
+        for(int i=0; i<buildings.size(); i++){
+            left=buildings[i][0];
+            right=buildings[i][1];
+            height=buildings[i][2];
+            /*** make sure : for the same left point we use the bigger height ***/
+            edges.push_back(make_pair(left, -height));
+            edges.push_back(make_pair(right, height));
+        }
+        sort(edges.begin(), edges.end());
+        vector<vector<int>> result;
+        /*** use the multiset to store the max height util current pos ***/
+        multiset<int> m;
+        /*** left most height ***/
+        m.insert(0);
+        int pre=0, cur=0;
+        for(int i=0; i<edges.size(); i++){
+            pair<int, int> e=edges[i];
+            if(e.second < 0)  m.insert(-e.second);
+            else m.erase(m.find(e.second));
+            cur=*(m.rbegin());
+            if(cur!=pre){
+                result.push_back(make_pair(e.first, cur));
+                pre=cur;
+            }
+        }
+        return result;
+    }
+};
+                                                 
+                                                 
+                                                 
+                                                 
+                                                 
 
 
 
