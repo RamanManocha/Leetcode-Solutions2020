@@ -226,6 +226,55 @@ public:
 
 
 
+ struct node{
+        vector<node*> children; 
+        bool isend; 
+        int value ; 
+        node(int v){
+            children.resize(26);
+            isend = false ;
+            value = v ;
+        }
+    };
+    unordered_map<string, int> mp; 
+    node* head = new node(-1); 
+    MapSum() {
+        
+    }
+    
+    void insert(string key, int val) {
+        node* curr = head; 
+        int eval = val ; // effective value 
+        if(mp.find(key) != mp.end()) eval = eval-mp[key]; 
+        for(auto x:key){
+            if(curr->children[x-'a']){
+                curr = curr->children[x-'a']; 
+                curr->value += eval; 
+            }
+            else{
+                curr->children[x-'a'] = new node(val); 
+                curr = curr->children[x-'a']; 
+            }
+        }
+        curr->isend = true ;
+        mp[key] = val; 
+    }
+    int sum(string prefix) {
+        node* curr = head; 
+        for(auto x: prefix ){
+            curr = curr->children[x-'a']; 
+            if (curr == NULL) break; 
+        }
+        if(curr == NULL) return 0 ; 
+        return curr->value; 
+    }
+};
+
+
+
+
+
+
 
 
 
