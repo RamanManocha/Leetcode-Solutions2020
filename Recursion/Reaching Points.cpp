@@ -33,7 +33,7 @@ Note:
 sx, sy, tx, ty will all be integers in the range [1, 10^9].
 
 
-
+The idea to write any of the recursive solution is first write the base cases then write the number of choices you are going to have
 
 class Solution {
     public boolean reachingPoints(int sx, int sy, int tx, int ty) {
