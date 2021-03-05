@@ -14,6 +14,8 @@ using namespace std;
 
 void KMP(string T, string P) { 
     int m = P.length(), n = T.length();
+    
+    LPS array is made on  the pattern
     vector<int> lps(m, 0);
     
     for(int i = 1; i < m; ++i){
