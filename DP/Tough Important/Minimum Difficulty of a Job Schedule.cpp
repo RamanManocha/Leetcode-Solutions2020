@@ -101,6 +101,49 @@ Constraints:
 1 <= d <= 10
 Accepted
 
+Easy to understand
+
+ #define INF 10000000
+
+class Solution {
+public:
+    
+     int dp[301][11];
+    int dfs(int idx, int d, vector<int>&jobDifficulty, int n){
+        
+        if(idx == n && d == 0 ) return 0;
+        
+        if(idx == n || d == 0 || n-idx<d ) return INF;
+        
+        if(dp[idx][d] != -1) return dp[idx][d];
+        
+        int ans = INF, maxEle = -INF;
+        
+        for(int j = idx ; j < n; j++){
+            
+            maxEle = max(maxEle, jobDifficulty[j]);
+            ans = min(ans, maxEle + dfs( j + 1, d -1, jobDifficulty, n));
+        }
+        
+        dp[idx][d] = ans;
+        
+        return ans;
+    }
+        
+    
+    int minDifficulty(vector<int>& jobDifficulty, int d) {
+        int n = jobDifficulty.size();
+        
+        if(n < d) return -1;
+        memset(dp, -1, sizeof(dp));
+        
+        int ans = dfs(0, d, jobDifficulty, n);
+       return ans;
+        
+        
+    }
+};
+
 
 
 
