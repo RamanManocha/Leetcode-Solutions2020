@@ -27,7 +27,10 @@ Example 3:
 Input: ")("
 Output: [""]
 
-An important thing to observe in the above diagram is that there are multiple ways of reaching the same solution i.e. say the optimal number of parentheses to be removed to make the original expression valid is K. We can remove multiple different sets of K brackets that will eventually give us the same final expression. But, each valid expression should be recorded only once. We have to take care of this in our solution. Note that there are other possible ways of reaching one of the two valid expressions shown above. We have simply shown 3 ways each for the two valid expressions.
+An important thing to observe in the above diagram is that there are multiple ways of reaching the same solution i.e. say the optimal number of parentheses to be 
+removed to make the original expression valid is K. We can remove multiple different sets of K brackets that will eventually give us the same final expression. But, 
+each valid expression should be recorded only once. We have to take care of this in our solution. Note that there are other possible ways of reaching one of the two
+valid expressions shown above. We have simply shown 3 ways each for the two valid expressions.
 
 Coming back to our problem, the question that now arises is, how to decide which of the parentheses to remove?
 
@@ -37,7 +40,8 @@ For every bracket we have two choices:
 
 Either it can be considered a part of the final expression OR
 It can be ignored i.e. we can delete it from our final expression.
-Such kind of problems where we have multiple options and we have no strategy or metric of deciding greedily which option to take, we try out all of the options and see which ones lead to an answer. These type of problems are perfect candidates for the programming paradigm, Recursion.
+Such kind of problems where we have multiple options and we have no strategy or metric of deciding greedily which option to take, we try out all of the options and 
+see which ones lead to an answer. These type of problems are perfect candidates for the programming paradigm, Recursion.
 
 Algorithm
 
@@ -63,11 +67,15 @@ One small optimization that we can do from an implementation perspective is intr
     Right now we simply go till the very end i.e. process all of the parentheses and when we are done processing all of them,
 we check if the expression we have can be considered or not.
 
-We have to wait till the very end to decide if the expression formed in recursion is a valid expression or not. Is there a way for us to cutoff from some of the recursion paths early on because they wouldn't lead to a solution? The answer to this is Yes! The optimization is based on the following idea.
+We have to wait till the very end to decide if the expression formed in recursion is a valid expression or not. Is there a way for us to cutoff from some of the
+recursion paths early on because they wouldn't lead to a solution? The answer to this is Yes! The optimization is based on the following idea.
 
-For a left bracket encountered during recursion, if we decide to consider it, then it may or may not lead to an invalid final expression. It may lead to an invalid expression eventually if there are no matching closing bracket available afterwards. But, we don't know for sure if this will happen or not.
+For a left bracket encountered during recursion, if we decide to consider it, then it may or may not lead to an invalid final expression. It may lead to an
+invalid expression eventually if there are no matching closing bracket available afterwards. But, we don't know for sure if this will happen or not.
 
-However, for a closing bracket, if we decide to keep it as a part of our final expression (remember for every bracket we have two options, either to keep it or to remove it and recurse further) and there is no corresponding opening bracket to match it in the expression till now, then it will definitely lead to an invalid expression no matter what we do afterwards.
+However, for a closing bracket, if we decide to keep it as a part of our final expression (remember for every bracket we have two options, either to keep it or to remove
+it and recurse further) and there is no corresponding opening bracket to match it in the expression till now, then it will definitely lead to an invalid expression no
+matter what we do afterwards.
 
 e.g.
 
