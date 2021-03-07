@@ -10,7 +10,8 @@ Hard
 Add to List
 
 Share
-There are n servers numbered from 0 to n-1 connected by undirected server-to-server connections forming a network where connections[i] = [a, b] represents a connection between servers a and b. Any server can reach any other server directly or indirectly through the network.
+There are n servers numbered from 0 to n-1 connected by undirected server-to-server connections forming a network where connections[i] = [a, b] represents a connection
+between servers a and b. Any server can reach any other server directly or indirectly through the network.
 
 A critical connection is a connection that, if removed, will make some server unable to reach some other server.
 
@@ -36,7 +37,61 @@ There are no repeated connections.
 
 
 
+Importance of the rank
 
+We can detect a cycle simply by checking if a rank has already been assigned to some neighbor or not (except for the parent of course, which we can handle separately). 
+ So when we detect a cycle, we can discard the current edge since that edge cannot be a critical connection. In our example graph above, we can discard edge E-B. However, 
+how do we discard edges B-D and D-E? The mere presence of a cycle in a subgraph doesn't guarantee that an ancestral edge/node will also be a part of the cycle.
+
+What we need is the minimum rank that a cycle includes. We need our traversal function to return this information so that the previous callers can use it to identify if 
+ an edge has to be discarded or not.
+
+Let's see how this information might be helpful with the help of our previous graph.
+
+Importance of rank
+
+Figure 4. Showcasing the importance of rank.
+
+We know that only the current level knows of the presence of a cycle. To make the upper levels (of recursion) make aware of this cycle, and also to help them discard 
+necessary edges, we return the minimum rank that our traversal finds. During a step of recursion from node u to its neighbor v, if DFS returns something smaller than or 
+equal to rank of u, then u knows its neighbor v is a part of a cycle spanning back to u or some other node higher up in the recursion tree i.e. an ancestor node. Thus,
+we can safely discard edge u-v because it is part of a cycle.
+
+Algorithm
+
+Let's define a function called dfs that takes in the node and the discoveryRank to be assigned to this node.
+
+The first step is to build the graph itself. For that, we will be using an adjacency list structure.
+
+Since our algorithm involves discarding edges, we need some efficient data structure that will allow us to do this operation in O(1)O(1) time. We'll convert the list of 
+ edges into a dictionary for that.
+
+For our algorithm, we'll name our graph as graph and our connections dictionary as connDict. The graph here is a dictionary of lists (i.e. it's an adjacency list).
+
+Additionally, we need an array to keep track of the rank of our nodes. That's also something we define in the main function criticalConnections along with all the 
+ things explained above.
+
+Inside our function dfs:
+
+We check if the node already has a rank assigned; if so, we return that value.
+
+Else, we assign the rank of this node i.e. rank[node] to the discoveryRank.
+
+We iterate over all the neighbors of the node and for each of them, we make a recursive call and we obtain the recursiveRank as the return value and do two things 
+using this value.
+
+If this recursiveRank is less than the current discoveryRank, that implies this edge is a part of a cycle and can be discarded.
+Second, we record the minimum rank till now from amongst all the neighbors. Let's name this minRank. This is the value we return at the end of the function.
+Note that we don't make a recursive call to the parent node. We detect parent nodes by checking if the rank of the neighboring node is discoveryRank - 1
+
+Return the minRank.
+
+We call the dfs function using the node 0 and rank 0 and once our search function completes, we convert the remaining edges from connDict to a list and return that as the result.
+ 
+ 
+ 
+ 
+ 
 
 
 
