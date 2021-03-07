@@ -92,7 +92,7 @@ We call the dfs function using the node 0 and rank 0 and once our search functio
  
  
  
-
+Condition of Bridge: If there is no back edge from aa  subgraph to it's parent or any of it's anscestor
 
 
 
@@ -134,6 +134,8 @@ public:
             // 1. Save the current node's "minimum rank" reachable (Why? See explanation in the article)
             // 2. If neighbor's rank is less than the discover time of current node, add the edge as a critical connection
             visited[v].lowpoint = min(visited[v].lowpoint, visited[neigh].lowpoint);
+            
+           //  If low value at any of the neighbour is greater than the discovery time, then in that case we say that there is a no back edge,  bridge at that point.
             if(visited[neigh].lowpoint > visited[v].time){
                 ans.push_back({v, neigh});
             }
