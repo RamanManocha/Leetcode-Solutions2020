@@ -59,6 +59,40 @@ So we need to return if the size of set of unused characters < 26.
     
     
     
+    
+    class Solution {
+public:
+    bool canConvert(string str1, string str2) {
+        
+        if(str1.size() != str2.size()) return false;
+        if(str1 == str2) return true;
+        unordered_map<char, char> charMap;
+        unordered_set<int> mappedSet;
+        for(int i = 0; i < str1.size(); i++){
+            char c1 = str1[i], c2 = str2[i];
+            
+            auto it1 = charMap.find(c1);
+            
+            if(it1 != charMap.end()){
+                
+                
+                char mapped = it1->second;
+                
+                if(mapped != c2) return false;
+            }
+            else charMap.insert({c1, c2}), mappedSet.insert(c2);
+            
+        }
+        return mappedSet.size() < 26;
+        
+    }
+};
+
+
+
+
+
+    
 Approach 2 :
 
 Had a lot fun solving this question.
