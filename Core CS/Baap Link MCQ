@@ -1,6 +1,25 @@
 https://leetcode.com/discuss/interview-question/1098600/data-structurecndbmsossystem-design
 
 
+Process (Attributes, state, life cycle, PCB) vs Thread. Scheduling Algorihtms Multiprogramming vs Multiprocessing vs Multitasking vs Multithreading. Memory 
+Allocation a) Fixed Partioning b) Dynamic Partioning c) Paging d) Segmentation Internal and External Fragmentation. Memory Allocation Technique. Page replacement 
+Algos Deadlock Critical section problem Mutex vs Semaphore Important Topic for DBMS Advantage of DBMS All type of Keys Normalization SQL queries Relational Algebra 
+Joins Trigger, cursor, view Dirty read problem Conflict serializable vs View serializable. ACID properties. Important Topic for COMPUTER NETWORK Network Topology Switch
+hub router bridge Transmission modes ipv4 vs ipv6 subnetting in IP OSI layer TCP/IP model TCP vs UDP DNS DHCP FTP HTTP vs HTTPS SMTP SNMP Flow vs Error control Important 
+
+
+Topic for OOPS Class and Objects. Feature/characteristics of OOPs. Compile time and Runtime polymorphism. Variable scopes. static (variables, Functions, Objects). Inheritence 
+(Type and Mode) Virtual (Functions and Class) Abstract class and Interface. Friend function and Friend class. Call by value, refrence. This pointer Abstraction Exception 
+Handling Constructor and Destructor. Copy constructor copy assignemnt operator Refrences variable Const (variable, Function, Arguement) Overloading (Function, Constructor,
+Operator) Function overriding and Inline function.
+
+
+
+
+
+
+
+
 COMPUTER NETWORKS
 
 The computer network is
