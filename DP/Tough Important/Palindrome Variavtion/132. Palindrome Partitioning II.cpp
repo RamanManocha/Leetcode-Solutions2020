@@ -42,6 +42,37 @@ DP algorithm spends lots of time to calculate isPalin, most of which is false (i
 then we can speed up the algorithm. This can be achieved with a Manancher-like solution, which is also given
 as following.
 
+ 
+ 
+ 
+ 
+ A typical dp problem:
+For each position i, incrementally find palindrome of length 1,3,5,..., then, of length 2,4,6. Suppose the start index of the found palindrome is idx_s and the end index of the palindrome is idx_e, update the dp table as the follow formula:
+dp[idx_e] = min(dp[idx_e], dp[idx_s-1] + 1)
+
+Wait a min, how about idx_s equal to 0? Seems like we should and some kind of special case test. Actually, this can be avoided by a sentinel trick. Refer to code for details.
+
+class Solution {
+public:
+    int minCut(string s) {
+        int n = s.size();
+        vector<int> dp(n+1, INT_MAX);
+        dp[0] = -1;       //act as a sentinel
+        for(int i = 0; i < n; i++){
+	//palindrome of length 1,3,5...
+            for(int len = 0; i-len >= 0 && i+len < n && s[i-len] == s[i+len]; len++)
+                dp[i+len+1] = min(dp[i+len+1], dp[i-len]+1);
+	//palindrome of lenght 2,4,6...
+            for(int len = 0; i-len >= 0 && i+len+1 < n && s[i-len] == s[i+len+1]; len++)
+                dp[i+len+2] = min(dp[i+len+2], dp[i-len]+1);
+        }
+        return dp[n];
+    }
+};
+
+
+
+
 
 / DP solution
     class Solution {
