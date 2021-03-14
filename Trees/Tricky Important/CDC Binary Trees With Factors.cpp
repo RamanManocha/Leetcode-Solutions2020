@@ -2,6 +2,11 @@
 823. Binary Trees With Factors
 Medium
 
+
+https://www.youtube.com/watch?v=GFAOtLFTibU&ab_channel=Codprac
+
+
+
 610
 
 74
