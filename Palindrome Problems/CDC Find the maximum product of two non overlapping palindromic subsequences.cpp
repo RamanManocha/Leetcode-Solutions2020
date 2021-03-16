@@ -2,6 +2,7 @@
 
 Find the maximum product of two non overlapping palindromic subsequences
 
+https://stackoverflow.com/questions/53663721/find-the-maximum-product-of-two-non-overlapping-palindromic-subsequences
 
 
 int longestPalindromicSubsequenceProduct(string x){
