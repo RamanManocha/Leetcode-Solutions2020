@@ -58,43 +58,29 @@ nums.length == 2 * n
 
 
 class Solution {
-public:
-    vector<vector<int> > m;
-    vector<unordered_map<int, int> > dp;
-    int gcd(int a, int b) {
-        if (a % b == 0) return b;
-        return gcd(b, a % b);
-    }
-    int dfs(vector<int>& nums, int mask, int step) {
-        if(mask + 1 == (1 << nums.size() )) return 0;
-        if(dp[step].count(mask)) return dp[step][mask];
-        int res = 0;
-        for(int i = 0; i < m.size(); ++i) {
-            int a = m[i][0];
-            int b = m[i][1];
-            if((mask & (1<< a)) || (mask & (1 << b))) continue;
-            res = max(res, step * m[i][2] + dfs(nums, mask | (1 << a) | (1 << b), step + 1));
-            
+    int dfs(const vector<int>& nums, int round, int state, unordered_map<int, int>& cache) {
+        if (round > nums.size() / 2) {
+            return 0;
         }
-        return dp[step][mask] = res;
-    }
-    int maxScore(vector<int>& nums) {
-        dp.resize(nums.size());
-        int ms = 1 << nums.size();
-        for(int i = 3; i < ms; ++i) {
-            int a = -1, b = -1;
-            int cnt = 0;
-            for(int j = 0; j < nums.size(); ++j) {
-                if((1 << j) & i) {
-                    if(a == -1) a = j;
-                    else if(b == -1) b = j;
-                    ++cnt;
+        if (cache.count(state) > 0) {
+            return cache[state];
+        }
+        
+        int ans = 0;
+        for (int i = 0; i < nums.size(); i++) {
+            for (int j = i + 1; j < nums.size(); j++) {
+                int picked = (1 << i) | (1 << j);
+                if ((state & picked) == 0) {
+                    ans = max(ans, round * __gcd(nums[i], nums[j]) + dfs(nums, round + 1, state | picked, cache));
                 }
             }
-            if(a >= 0 && b >= 0 && cnt == 2) {
-                m.push_back({a, b, gcd(nums[a], nums[b])});
-            }
         }
-        return dfs(nums, 0, 1);
+
+        return cache[state] = ans;
+    }
+public:
+    int maxScore(vector<int>& nums) {
+        unordered_map<int, int> cache;
+        return dfs(nums, /*round=*/1, /*state=*/0, cache);
     }
 };
