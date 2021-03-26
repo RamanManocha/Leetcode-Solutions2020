@@ -2,7 +2,7 @@
 
 Simplify the directory path (Unix like)
 
-
+https://www.geeksforgeeks.org/simplify-directory-path-unix-like/
 
 Simplify the directory path (Unix like)
 Difficulty Level : Medium
