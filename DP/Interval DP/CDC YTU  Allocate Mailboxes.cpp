@@ -53,6 +53,45 @@ Array houses contain unique integers.
 
 
 
+class Solution {
+public:
+    int minDistance(vector<int>& A, int K) {
+        sort(A.begin(), A.end());
+        
+        int n = A.size();
+        int cost[100][100] = {};
+        for (int i = 0; i < n; i++) {
+            for (int j = i; j < n; j++) {
+                for (int k = i; k <= j; k++) {
+                    cost[i][j] += abs(A[k] - A[(i + j + 1) / 2]);
+                }
+            }
+        }
+        
+        int dp[101] = {};
+        for (int j = 0; j <= K; j++) {
+            for (int i = n; i >= 0; i--) {
+                if (i == 0) {
+                    dp[i] = 0;
+                } else if (j == 0) {
+                    dp[i] = 1e9;
+                } else {
+                    dp[i] = 1e9;
+                    for (int k = 1; k <= i; k++) {
+                        dp[i] = min(dp[i], cost[i - k][i - 1] + dp[i - k]);
+                    }
+                }
+            }
+        }
+        
+        return dp[n];
+    }
+};
+
+
+
+
+
 
 
 
