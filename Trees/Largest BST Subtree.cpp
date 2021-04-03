@@ -37,9 +37,11 @@ the current node in the size of the newly coalesced BST ) and track the minimum 
 use case 2) return the size of the maximum
 BST within the subtree at the current node.
 
+https://www.youtube.com/watch?v=ffKw8v0LH4I&ab_channel=KashishMehndiratta
 
 
 
+TO convert that into a BST, left should be bst, right shpuld be BST,  left max < node, right min > node
 
 class Solution {
 public:
