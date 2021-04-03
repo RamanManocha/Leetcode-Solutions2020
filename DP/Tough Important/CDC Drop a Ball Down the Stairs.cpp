@@ -2,9 +2,6 @@
 Drop a Ball Down the Stairs
 
 
-
-
-
 You are given an integer height and a list of integers blacklist. You are currently standing at height height and you are playing a game to move a 
 small ball down to height 0.
 
