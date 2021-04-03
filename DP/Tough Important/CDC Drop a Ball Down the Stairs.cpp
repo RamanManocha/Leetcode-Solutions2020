@@ -2,6 +2,31 @@
 Drop a Ball Down the Stairs
 
 
+
+Intuition
+Treat this as a typical DP problem however instead of keeping track of one unique parameter we keep track of two - (1) if the turn is odd/even and (2) 
+    what is the current height we are on.
+
+Implementation
+=> Convert blacklist to set for O(1) access in our recursive dp function
+=> Base case of if the current height is in the black list or if it we are below 0 to return 0, as this is not a valid combination.
+=> Accepting base case, if we are at height 0 to return 1 for one possible path to the bottom of the stairs
+=> We then check our memoized DP array to see if we've calculated this before, and if we have to return that
+=> Otherwise we have our two recursive calls, in our odd call we go down by 1, 3, 4 and set odd to false (0). In our even recursive calls we go down
+by 1, 2, 4 and set odd to true (1).
+=> Mod all additions by the provided number in the problem statement and return the result value starting at position height
+
+Time Complexity
+\mathcal{O}(h)O(h) Where h is the height, as we are calculating H possible combinations to reach to stair 0.
+
+Space Complexity
+\mathcal{O}(h)O(h) Where h is the height we start off at, and we can disregard the 2 as it is a constant and so can be dropped.
+    
+    
+    
+    
+    
+
 You are given an integer height and a list of integers blacklist. You are currently standing at height height and you are playing a game to move a 
 small ball down to height 0.
 
