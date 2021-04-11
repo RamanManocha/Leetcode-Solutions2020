@@ -37,10 +37,10 @@ public:
         while(!pq.empty()) {
             pair<int, char> p1, p2;
             p1 = pq.top(); pq.pop();
-            ans.push_back(p1.second);
+            ans = ans + p1.second;
             if (!pq.empty()) {
                 p2 = pq.top(); pq.pop();
-                ans.push_back(p2.second);
+                ans = ans + p2.second;
                 if (--p2.first)
                     pq.push(p2);
             }
