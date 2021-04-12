@@ -1,4 +1,6 @@
 
+https://www.geeksforgeeks.org/count-of-ordered-pairs-x-y-satisfying-the-equation-1-x-1-y-1-n/
+
 
 Count of Ordered Pairs (X, Y) satisfying the Equation 1/X + 1/Y = 1/N
 
