@@ -12,6 +12,9 @@ For example, given the list of temperatures T = [73, 74, 75, 71, 69, 72, 76, 73]
 Note: The length of temperatures will be in the range [1, 30000]. Each temperature will be an integer in the range [30, 100].
 
 
+https://www.youtube.com/watch?v=t5iAzq0yG1I&t=328s&ab_channel=CppHack
+
+
 
 class Solution {
 public:
@@ -26,9 +29,11 @@ public:
                      warmer.pop();
             }
         // eif the number is  smalller simply insert the difference in indexes 
-        if(!warmer.empty()) answer[i]=warmer.top()-i; 
-                  warmer.push(i);
-            }   
+        if(!warmer.empty())
+        answer[i]=warmer.top()-i; 
+           
+        warmer.push(i);
+     }   
      return answer;
   }
 };
