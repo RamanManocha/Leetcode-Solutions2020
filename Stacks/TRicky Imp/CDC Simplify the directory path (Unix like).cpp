@@ -1,4 +1,6 @@
 
+Update: search simpllify Path
+
 
 Simplify the directory path (Unix like)
 
