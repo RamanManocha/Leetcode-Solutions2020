@@ -46,10 +46,32 @@ root =
 Output
 [4, 2]
 
+Appeoacch 1:
+
+
+void preorder(Tree* root, vector<int>& sum, int level) {
+    if (!root) return;
+
+    if (level < sum.size()) {
+        sum[level] += root->val;
+    } else {
+        sum.push_back(root->val);
+    }
+    preorder(root->left, sum, level + 1);
+    preorder(root->right, sum, level);
+}
+
+vector<int> solve(Tree* root) {
+    vector<int> sum;
+    if (root == NULL) return sum;
+    int level = 0;
+    preorder(root, sum, level);
+    return sum;
+}
 
 
 
-
+Approach 2 :
 
 
 vector<int> res;
@@ -81,3 +103,10 @@ vector<int> solve(Tree* root) {
 
     return res;
 }
+
+
+
+
+
+
+
