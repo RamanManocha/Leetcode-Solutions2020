@@ -35,3 +35,74 @@ Return C as the final output
 Conclusion
 The key point is the representation of the sparse matrix and the rule of matrix multiplication, especially the relationship
 between the coordinate
+
+
+
+
+
+
+
+
+class Solution {
+public:
+    vector<vector<int>> multiply(vector<vector<int>>& mat1, vector<vector<int>>& mat2) {
+        int m = mat1.size(), n = mat1[0].size(), nb = mat2[0].size();
+        vector<vector<int>> res(m, vector<int>(nb));
+        
+        for (int i = 0; i < m; i++)
+        {
+            for(int k = 0; k < n; k++)
+            {
+                if (mat1[i][k] != 0)
+                {
+                    for (int j = 0; j < nb; j++)
+                    {
+                        if (mat2[k][j] != 0)
+                            res[i][j] += mat1[i][k] * mat2[k][j];    
+                    }
+                }
+            }
+        }
+        
+        return res;
+    }
+};
+
+
+class Solution {
+public:
+    vector<vector<int>> multiply(vector<vector<int>>& A, vector<vector<int>>& B) {
+        int m = A.size();
+        int p = A[0].size();
+        int n = B[0].size();
+        vector<vector<int>> C(m, vector<int>(n));
+        unordered_map<int, int> mp_A;
+        unordered_map<int, int> mp_B;
+        for (int i = 0; i < m; ++i) {
+            for (int j = 0; j < p; ++j) {
+                if (A[i][j] != 0)
+                    mp_A[i * p + j] = A[i][j];
+            }
+        }
+        for (int i = 0; i < p; ++i) {
+            for (int j = 0; j < n; ++j) {
+                if (B[i][j] != 0)
+                    mp_B[i * n + j] = B[i][j];
+            }
+        }
+        for (const auto& kvp_A : mp_A) {
+            int i = kvp_A.first / p;
+            int j = kvp_A.first % p;
+            for (const auto& kvp_B : mp_B) {
+                int u = kvp_B.first / n;
+                int v = kvp_B.first % n;
+                if (j == u) {
+                    C[i][v] += kvp_A.second * kvp_B.second;
+                }
+            }
+        }
+        return C;
+    }
+};
+
+
