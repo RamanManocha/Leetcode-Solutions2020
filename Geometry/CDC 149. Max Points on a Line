@@ -1,3 +1,18 @@
+
+
+
+"For each point pi, calculate the slope of each line it forms with all other points with greater indices, i.e. pi+1, pi+2, ..., and use a 
+map to record how many lines have the same slope (If two lines have the same slope and share a common point, then the two lines must be the 
+
+same one). By doing so, you can easily find how many points are on the same line that ends at pi in O(n). Thus the amortized running time of 
+the whole algorithm is O(n^2)."
+
+In order to avoid using double type(the slope k) as map key, I used pair (int a, int b) as the key where a=pj.x-pi.x, b=pj.y-pi.y, and k=b/a.
+Using greatest common divider of a and b to divide both a, b ensures that lines with same slope have the same key.
+
+I also handled two special cases: (1) when two points are on a vertical line (2) when two points are the same.
+
+
 class Solution {
 public:
     int maxPoints(vector<vector<int>>& points) {
