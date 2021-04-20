@@ -14,6 +14,53 @@ Output: false
 
 
 
+   
+   
+   
+ if number of edges are not equal to number of vertex minus 1, then return false;
+check if the graph just have one connected component, if yes, return true;
+
+
+
+
+class Solution {
+public:
+    bool validTree(int n, vector<pair<int, int>>& edges) {
+// if they have cycle, the edge must not be n-1
+        if(edges.size() != n - 1)
+        return false;
+        int component=0;
+        vector<int>v[n];
+        vector<bool>visited(n,false);
+ 
+        for(auto edge:edges){
+            v[edge.first].push_back(edge.second);
+            v[edge.second].push_back(edge.first);
+        }
+        
+// count component
+        for(int i=0;i<n;++i){
+            if(!visited[i]){
+                ++component;
+                DFS(v,visited,i);
+            }
+        }
+     
+        return component==1;  
+    }  
+    void DFS(vector<int>v[],vector<bool>&visited,int indx){
+        if(visited[indx])
+        return;
+        visited[indx]=true;
+        for(int j=0;j<v[indx].size();++j){
+            DFS(v,visited,v[indx][j]);
+        }
+    }
+};
+
+
+
+
    Using BFS
    
    
