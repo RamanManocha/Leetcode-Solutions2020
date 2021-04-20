@@ -14,7 +14,7 @@ For each kind of duplicate subtrees, you only need to return the root node of an
 
 Two trees are duplicate if they have the same structure with the same node values.
 
- 
+ https://www.youtube.com/watch?v=_j7yb_nWFO8&ab_channel=CodeLibrary
 
 Example 1:
 
@@ -78,6 +78,41 @@ Algorithm
 If we have seen the triple (node.val, x, y) before, we can use the identifier we've remembered. Otherwise, we'll create a new one
 
 
+
+function returns true if the tree contains  a duplicate subtree of size 2 or more else returns unordered_map<string, int> m;
+
+
+string solve(Node* root){
+
+if(!root) return "$";
+
+string s = "";
+
+if(!root->right and !root->left){
+ s = to_string(root->data); return s;
+
+}
+s = s +  to_string(root->data); s = s +  solve(root->left);
+  s = s +  solve(root->right);
+m[s]++; 
+ return s;
+
+bool dupSub(Node root) (
+
+//your code here
+
+m.clear(); solve(root);
+
+for(auto x:m){
+
+} if(x.second >= 2) return true;
+
+return false;
+ 
+ 
+ 
+ 
+ 
 class Solution {
 public:
     vector<TreeNode*> findDuplicateSubtrees(TreeNode* root) {
