@@ -51,8 +51,10 @@ Approach:
 
 1. The first insight is that the longest path in a tree can only happen between two leaves nodes or between a leaf node and the root node.
 
-2. The second insight is that each non-leaf node acts as a bridge for the paths between its descendant leaves nodes. If we pick two longest sub-paths 
-from a non-leaf node to its descendant leaves nodes, and combine them together, then the resulting path would be the longest path among all possible ones 
+2. The second insight is that each non-leaf node acts as a bridge for the paths between its descendant leaves nodes. If we pick two longest 
+sub-paths 
+from a non-leaf node to its descendant leaves nodes, and combine them together, then the resulting path would be the longest path among all 
+possible ones 
 that are bridged by this
 non-leaf node.
 
@@ -61,12 +63,13 @@ Based on the above definition, a leaf node will have a height of zero.
 
 
 
-As we explained in the overview section, the longest path that is bridged by a non-leaf node will come from the combination of two longest sub-paths downward to the leaves nodes from this non-leaf node.
+As we explained in the overview section, the longest path that is bridged by a non-leaf node will come from the combination of two longest 
+sub-paths downward to the leaves nodes from this non-leaf node.
 
 As one might see now, the sub-paths that we mentioned above consist of the top two largest heights of the children nodes.
 
-If we define the top two largest heights of the children nodes as height(node.child_m) and height(node.child_n), then the longest path bridged by this node would be
-height(node.child_m) + height(node.child_n) + 2.
+If we define the top two largest heights of the children nodes as height(node.child_m) and height(node.child_n), then the longest path bridged
+by this node would be height(node.child_m) + height(node.child_n) + 2.
 
 
 
@@ -79,6 +82,70 @@ longest path could be calculated as the sum of top two largest depths minus the 
 depth(node.leaf_m) + depth(node.leaf_n) - 2 * depth(node)
 
 
+class Solution {
+public:
+    int diameter(Node* root) {
+        int width = 0;
+        solve(root, width);
+        return width;
+    }
+    
+    int solve(Node* root, int& width){
+        
+        int max_depth = -1;
+        int next_max_depth = -1;
+        
+        for (auto child: root->children){
+            
+            int child_depth = solve(child, width);
+            
+			// Since child_depth > max_depth > next_max_depth we need to update both max_depth and next_max_depth
+            if (child_depth > max_depth){
+                
+                next_max_depth = max_depth;
+                max_depth = child_depth;
+                
+            } else if (child_depth > next_max_depth){  // child_depth >  next_max_depth so only update next_max_depth
+                
+                next_max_depth = child_depth;
+            }
+        }
+        
+        int candidate = max_depth + next_max_depth + 2;
+		
+        width = max(width, candidate);
+        
+        return max_depth + 1;
+    }
+};
+
+
+
+
+
+
+
+
+
+
+class Solution {
+    int best = 0;
+    int go(Node* root, int next = 0) {
+        if (!root) // 🛑 base case
+            return 0;
+        for (auto child: root->children) { // 🚀 DFS explore children
+            auto cur = go(child);
+            best = std::max(best, cur + next); // 🎯 best pair of current local maximums
+            next = std::max(cur, next);
+        }
+        return 1 + next; // ⭐️ next candidate accumulated as the recursive stack unwinds
+    }
+public:
+    int diameter(Node* root) {
+        go(root);
+        return best;
+    }
+};
 
 
 
