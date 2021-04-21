@@ -20,6 +20,37 @@ Given a binary tree
 Return 3, which is the length of the path [4,2,1,3] or [5,2,1,3].
 
 
+          
+          
+   The question can be solved by small modification to program of Height of tree.       
+          
+ The idea is quite simple. Max value of Height(leftSubtree)+Height(rightSubtree) (at any node ) is the diameter. Keep track of maxium diameter duing 
+ traversal and find the height of the tree.         
+          
+          
+          
+   class Solution {
+public:
+    int diameterOfBinaryTree(TreeNode* root) {
+        int diameter = 0;
+        height(root, diameter);
+        return diameter;
+    }
+private:
+    int height(TreeNode* node, int& diameter) {
+        if (!node) {
+            return 0;
+        }
+        int lh = height(node->left, diameter);
+        int rh = height(node->right, diameter);
+        diameter = max(diameter, lh + rh);
+        return 1 + max(lh, rh);
+    }
+};       
+          
+          
+          
+          
 Height of a Binary Tree
 Let us see how to calculate the height of a binary tree using post order traversal.
 
