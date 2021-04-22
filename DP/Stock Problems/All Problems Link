@@ -1,0 +1,118 @@
+https://medium.com/algorithms-and-leetcode/best-time-to-buy-sell-stocks-on-leetcode-the-ultimate-guide-ce420259b323
+
+
+
+
+
+Today we’ll discuss the popular series of Leetcode problems related to buying and selling stocks. Looking at these problems sequentially will help us understand how they differ from each other and how we need to approach to solve them. Most of them are tagged under dynamic programming on Leetcode. I have used Python 3 for all the solutions. Without any delay, we will jump in.
+121. Best Time to Buy and Sell Stock
+Problem Link
+This one is undoubtedly the easiest of them all. We just need to buy and sell a single stock to maximize the profit. The idea is to buy when the stock is cheapest and sell when it is the most expensive. Obviously, you have to buy before selling.
+
+This diagram would help in visualizing the problem. We need to find those two points.
+We can surely run two loops to check each buying and selling day, but we want to do better.
+Is there a single pass solution?
+If we can keep a track of the minimum stock price and the maximum profit, we should be able to solve the problem in a single pass.
+
+Linear Time — Constant Space Python Solution
+
+
+
+
+
+122. Best Time to Buy and Sell Stock II
+Problem Link
+What’s new is that in this problem, we can buy multiple (no upper limit) stocks to maximize the profit as opposed to only one in the previous. But at most one stock can be there in hand all the time.
+
+Interestingly, the problem can be visualized as calculating the upslopes only. Thus only the sum of the differences between the peaks and the valleys. Observing with some further test cases we realize that the upslopes can be broken down into summations of many smaller upslopes. Refer to the diagram below, it has been taken from Leetcode article.
+
+We can see from this figure that A+B+C = D. Thus if we calculate A, B, C, etc and keep on adding them we should eventually get the total sum of the uphill slopes. For the above test case input [1, 7, 2, 3, 6, 7, 6, 7] the expected output is 12 because 6+0+1+3+1+0+1 = 12. Just transferring this simple idea to code we get.
+
+
+
+
+
+
+
+
+
+
+
+Linear Time — Constant Space Python Solution
+123. Best Time to Buy and Sell Stock III
+Problem Link
+In this case, we can engage in at most two transactions with the same limitation that one cannot engage in multiple transactions simultaneously, i.e., sell the stock before buying again.
+Let’s break down this problem. We buy the first stock and try to get the maximum profit so that we have enough days left to buy and sell another stock. Note that buying stock means we are spending money equivalent to the price of the stock, thus subtract the price. On selling the stock we add the price because the associated price is getting added to our profit.
+Final Profit = (Initial Profit — Buying Price) + Selling Price
+We can consider variables individually for the two stocks for buying and selling. Only after we complete the first stock buying then we can sell it, and once we sell it then we can buy the second stock and only after that we can sell it. Understanding this sequence is important because each variable depends upon the previous one in the sequence.
+First Buy -> First Sell -> Second Buy -> Second Sell
+Best Way To Sell Second Stock (Second Sell) = Final Profit
+We can process the array and assume that in each case we have the best result for the previous variable in the sequence. Based on that we can design an algorithm that is as shown below.
+
+Linear Time — Constant Space Python Solution
+First, we initialize all the variables. Then we iterate the prices array and check if we can buy the current stock so as to maximize the profit. Then we check if we can sell it immediately or afterwards thus adding the price of the stock, and checking whether we are able to maximize the first transaction. Based on the first transaction we go ahead with our second transaction and work with it similarly. Have a look at the table below generated for the input [3,3,5,0,0,3,1,4]
+
+Let us have a look at a special test case, it is strictly monotonically increasing. The input is [1, 2, 3, 4, 5] and the expected output is 4 because we can buy on first day and sell on the fifth day which is the only transaction, we do not need a second transaction in this case to maximize the profit. Have a look.
+
+188. Best Time to Buy and Sell Stock IV
+Problem Link
+This time we are allowed to buy at most k stocks. Let’s think about how this problem is different from the previous one (#123). Previously we had the same objective but we could buy at most two stocks. Think about generalizing it for k stocks now. Think about exactly k variables that would hold our previous states. The immediate data structure that comes in our mind is an array. We can use two arrays of length k for keeping track of buy and sell profits. We will keep the logic the same and generalize the part inside the loop.
+
+Notice how we added an extra check to handle the case when k=0 (we can buy zero stocks at most). Also, check how I handled the zeroth buy and sell outside the inner loop to keep code simple and clean because I cannot access sell[j-1] when j is 0, which should technically be zero. Another way to handle this would be.
+buy[j] = max(buy[j], (sell[j-1] if j>0 else 0)-prices[i])
+sell[j] = ... same as shown in the image above ...
+Fair enough! We just generalized our solution of #123 from k=2 to k=anything. If you try submitting this, although our logic is correct we would get a Time/Memory Limit Exceeded Error. Let’s understand this.
+
+Memory Error Spotted
+On investigating the test case, we notice that the value of K is a whooping 1000000000. We cannot define two arrays so huge, no way!
+Let us think rationally, if we have N days of stocks given how many maximum transactions can we do? … It is Floor(N/2). Don’t believe me? Good.
+Buy on day 1, Sell on day 2
+Buy on day 3, Sell on day 4
+.....
+.....
+Buy on day n-1, Sell on day n
+Clearly, Floor(N/2) complete transactions
+Thus, when the value of K is greater than N/2 the problem is similar to #122 because the upper bound is infinite and we can buy and sell multiple stocks (obeying the constraint: buy a stock after selling the previous one).
+
+O(k) Space — O(nk) Time if k>n/2 else O(n) Time — O(1) Space Python Solution
+This passes all the 211 test cases with a nice margin. Yayaay!
+309. Best Time to Buy and Sell Stock with Cooldown
+Problem Link
+This problem is similar to #122 where we could engage in multiple transactions. Another extra condition new to this problem is that after selling a stock you are now allowed to buy a stock for the next 1 day which is referred to as the cooldown.
+Refer to the following state diagram, these are the three states and possible choices we can make in each state.
+
+State Diagram For #309. © Amitrajit Bose
+We can leverage the generalized solution from our previous two problems.
+
+Things to note from the above solution:
+1) It runs in linear time and linear space
+2) buy[0] is being initialized to -prices[0] (minus price of first stock), because we are assuming to have bought the first stock at the end of first day
+3) buy[i] = max(buy[i-1], sell[i-2]-prices[i]) This indicates that we can either not buy any new stock (remains buy[i-1]) on day ‘i’ or buy a stock given that the previous day was skipped for cooldown (sell[i-2]+price).
+4) There is no such condition for selling because we can sell the stock immediately the next day(buy[i-1]+price) after buying or just skip the day(sell[i-1]).
+Is there any way to optimize the solution?
+We cannot improve the runtime (asymptotically speaking), but looking at the array we see that we are not really using the entire array at any instance of time in the algorithm. We only access buy[i-1], sell[i-2] while processing buy[i] and sell[i-1] while processing sell[i]. Clearly, we can reduce the space consumed by our algorithm by reusing variables. Let’s have a look at the new algorithm, it is not so pretty as before though.
+
+Linear Time — Constant Space Python Solution
+We used variables buy_0, sell_0, buy_1, sell_1, sell_2 to keep track of the previous states for corresponding transactions. There can be several ways to do this space optimization, whatever seems natural to you, you should go with that. For my code, the ideology was
+buy[i-0] = buy_0
+buy[i-1] = buy_1
+sell[i-0] = sell_0
+sell[i-1] = sell_1
+sell[i-2] = sell_2
+Because these are the only states we are caching and re-using, yes it's DP obviously. (Dynamic Programming)
+714. Best Time to Buy and Sell Stock with Transaction Fee
+What’s new about this problem? How is it different from the previous ones.
+There is a penalty cost associated with every stock you buy apart from the price of the stock. You are allowed to buy multiple stocks (infinite) with at most one stock in hand.
+You might be thinking about replicating the code from #122 with this modification.
+profit += max((prices[i]-prices[i-1])-fee, 0)
+But, let us discuss why this would not work.
+Previously in #122 we had no cost associated with each transaction. We only had to calculate the profits (if any) between each consecutive transaction. We already discussed why calculating consecutive profits add up to a large profit in the end previously. But here, it is not the same thing, in some situations the fee associated with a transaction can be more than the profit itself. This hinders us from using the approach from #122. Rather, we work on the solution of #309 and modify it for this problem. Below is the code.
+
+Linear TIme — Linear Space Python Solution
+Note, since no cooldown is associated, we can buy a stock immediately after selling one (thus s[i-1]-prices[i]-fee). This is a linear time and linear space solution, let us try to optimize it down to a constant space solution, as we did earlier in #309.
+
+
+
+
+
+
