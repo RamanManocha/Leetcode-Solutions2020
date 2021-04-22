@@ -38,7 +38,8 @@ Output: false
 
 
 
-// We use a boolean vector dp[]. dp[i] is set to true if a valid word (word sequence) ends there. The optimization is to look from current position i 
+// We use a boolean vector dp[]. dp[i] is set to true if a valid word (word sequence) ends there. The optimization is to look 
+  from current position i 
 back and only substring and do dictionary look up in case the preceding position j with dp[j] == true is found.
 
 
@@ -77,6 +78,35 @@ public:
         return dp[s.size()];
     }
 };
+
+
+
+
+ bool solve(string s,unordered_map<string,int> dict)
+    {
+            int n = s.size();
+            vector<int>dp(n+1);
+            dp[0] = true;
+            for(int len = 1;len<=s.length();len++)
+            {
+                    for(int i = 0;i<len;i++)
+                    {
+                            if(dp[i] == true && dict.find(s.substr(i,len- i)) != dict.end()){
+                                    dp[len] = true;
+                                    break;
+                            }
+                    }
+            }
+         return dp[n];
+    }
+    bool wordBreak(string s, vector<string>& wordDict) {
+            unordered_map<string,int> dict;
+            for(int i = 0;i<wordDict.size();i++)
+            {
+                   dict[wordDict[i]]++; 
+            }
+           return solve(s,dict);
+    }
 
 
 
