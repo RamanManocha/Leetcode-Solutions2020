@@ -20,6 +20,51 @@ We can form the following sequence: ["ab", "abc", "abcd"].
 
 
 
+    
+    struct Node {
+    bool end;
+    vector<Node*> children;
+
+    Node() {
+        end = false;
+        children.assign(26, NULL);
+    }
+};
+
+Node* root;
+int res;
+
+void add_word(string w) {
+    Node* tmp = root;
+    for (int i = 0; i < w.size(); i++) {
+        int c = (int)(w[i] - 'a');
+        if (tmp->children[c] == NULL) tmp->children[c] = new Node();
+        tmp = tmp->children[c];
+    }
+    tmp->end = true;
+}
+
+int longest(Node* cur) {
+    if (cur == NULL) return 0;
+    int length = cur->end ? 1 : 0;
+    int sublength = 0;
+    for (int i = 0; i < 26; i++) {
+        sublength = max(sublength, longest(cur->children[i]));
+    }
+    res = max(res, length + sublength);
+    return length + sublength;
+}
+int solve(vector<string>& words) {
+    res = 0;
+    root = new Node();
+    for (string w : words) add_word(w);
+    longest(root);
+    return res;
+}
+
+
+
+
 
 int solve(vector<string>& words) {
     sort(words.begin(), words.end());
