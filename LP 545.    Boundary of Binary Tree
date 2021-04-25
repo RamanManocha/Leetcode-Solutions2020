@@ -77,6 +77,63 @@ if node is right bound, add it after 2 child - post order;
 A leaf node that is neither left or right bound belongs to the bottom line;
 C++
 
+
+
+class Solution {
+    vector<int>res;
+    void printLeaves(TreeNode* root) {
+        if (!root) return;
+        
+        if (!root->left && !root->right)
+            res.push_back(root->val);
+        printLeaves(root->left);
+        printLeaves(root->right);
+    }
+    
+    void printLeftBoundary(TreeNode* root) {
+        if (!root) return;
+        if (!root->left && !root->right) return;
+    
+        res.push_back(root->val);
+        
+        if (root->left)
+            printLeftBoundary(root->left);
+        else if (root->right)
+            printLeftBoundary(root->right);
+    }
+    
+    void printRightBoundary(TreeNode* root) {
+        if (!root) return;
+        if (!root->left && !root->right) return;
+        
+        if (root->right)
+            printRightBoundary(root->right);
+        else if (root->left)
+            printRightBoundary(root->left);
+        
+        res.push_back(root->val);
+    }
+    
+public:
+    vector<int> boundaryOfBinaryTree(TreeNode* root) {
+        if (!root) return res;
+        
+        res.push_back(root->val);
+        printLeftBoundary(root->left);
+        printLeaves(root->left);
+        printLeaves(root->right);
+        printRightBoundary(root->right);
+        return res;
+    }
+};
+
+
+
+
+
+
+
+
 class Solution {
 public:
     vector<int> boundaryOfBinaryTree(TreeNode* root) {
