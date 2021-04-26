@@ -20,6 +20,66 @@ Output: 4
 Explanation: [0, 0] → [2, 1] → [4, 2] → [3, 4] → [5, 5]
 
 
+https://leetcode.com/problems/minimum-knight-moves/discuss/586850/C%2B%2B-code-that-actually-works
+
+
+
+class Solution {
+public: 
+    // (y, x) axis for (row, col) == (i, j). Same as normal Cordinate Graph, just flipped by Horizontal axis
+    // 1st (Bottom-Right), 2nd(Bottom-Leftt), 3rd(Top-Left), 4th(Top-Right) Quadrant at every pair of pairs
+    vector<vector<int>> direction = {{1, 2}, {2, 1}, {-2, 1}, {-1, 2}, {-1, -2}, {-2, -1}, {2, -1}, {1, -2}};
+    
+    int minKnightMoves(int x, int y) {
+        if(x == 0 && y == 0)
+            return 0;
+		if(x == 1 && y == 1) // Base Cases
+            return 2;
+        int steps=0;
+        
+        queue<pair<int, int>> q;
+        q.push({0, 0});
+        
+        unordered_set<string> visited;
+        visited.insert("0,0"); // Always use string as hash value when storing pair of indexes/ Matrix
+        
+        while(!q.empty()){
+            int k=q.size(); // Level Order Traversal
+            for(int i=0; i<k; i++){
+                pair<int, int> pairs=q.front();
+                q.pop();
+                
+                if(pairs.first==x && pairs.second==y) return steps; // Found
+                
+                int quadrant = findQuadrant(x, y, pairs); // Find in which Quadrant. Search in only that part.
+                
+                for(int d=quadrant; d<quadrant+2; d++){
+                    int row=pairs.first + direction[d][0], col=pairs.second + direction[d][1];
+                    string hashcode = to_string(row) + "," + to_string(col); // Generate hashcode string
+                    
+                    if(visited.find(hashcode)==visited.end()){ // Push in Queue if not visited
+                        q.push({row, col});
+                        visited.insert(hashcode);
+                    }
+                }    
+            }
+            steps++; // Increment level
+        }
+        return -1;
+    }
+    
+    int findQuadrant(int x, int y, pair<int, int> pairs){
+        if(x-pairs.first>=0 && y-pairs.second>=0) // 1st Quadrant
+            return 0;
+        else if(x-pairs.first<0 && y-pairs.second>=0) // 2nd Quadrant
+            return 2;
+        else if(x-pairs.first<0 && y-pairs.second<0) // 3rd Quadrant
+            return 4;
+        else return 6; // 4th Quadrant
+        
+    }
+};
+
 
 
 
