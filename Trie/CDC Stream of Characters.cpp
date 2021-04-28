@@ -42,6 +42,61 @@ The number of queries is at most 40000.
 
 The idea is based on suffix trie
 
+
+
+
+
+class StreamChecker {
+public:
+    class TrieNode {
+    public:
+        TrieNode() : children {}, leaf(false) {}
+        bool leaf;
+        TrieNode* children[26];
+    };
+    
+    StreamChecker(vector<string>& words) {
+        root = new TrieNode();
+        
+        for (auto& word : words) {
+            TrieNode* it = root;        
+            for (char c : word) {
+                if (!it->children[c - 'a'])
+                    it->children[c - 'a'] = new TrieNode();
+                it = it->children[c - 'a'];
+            }
+            it->leaf = true;
+        }
+    }
+    
+    bool query(char letter) {
+        bool result = false;
+        
+        vector<TrieNode*> newpaths;
+        paths.push_back(root);
+        
+        for (TrieNode* it : paths) {
+            TrieNode* child = it->children[letter - 'a'];
+            if (child) {
+                if (child->leaf)
+                    result = true;
+                newpaths.push_back(child);
+            }
+        }
+        paths = newpaths;
+        
+        return result;
+    }
+    
+    vector<TrieNode*> paths; // keeps track of all possible words that could occur with the next query() call
+    TrieNode* root;
+};
+
+
+
+
+
+
 class StreamChecker {
 public:
     
