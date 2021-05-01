@@ -26,6 +26,40 @@ Output: [3,1,null,null,2]
    2
 Example 2:
 
+
+
+
+class Solution {
+public:
+    TreeNode* first,*second,*prev;
+    void traverse(TreeNode* root)
+    {
+        if(root==NULL)
+            return;
+        traverse(root->left);
+        
+        if(first==NULL&&prev->val>root->val)
+            first=prev;
+        if(first!=NULL&&prev->val>root->val)
+            second=root;
+        prev=root;
+        
+        traverse(root->right);
+        
+    }
+    void recoverTree(TreeNode* root) {
+        first=NULL;
+        second=NULL;
+        prev=new TreeNode(INT_MIN);
+        traverse(root);
+        swap(first->val,second->val);
+    }
+};
+
+
+
+
+
 class Solution {
     TreeNode* first=NULL;
     TreeNode* second=NULL;
