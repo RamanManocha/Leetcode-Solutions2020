@@ -70,6 +70,66 @@ mind the first day you can attend a new event in
 
 
 
+Which one shall we attend?
+Intuitively, the one that ends earliest.
+
+How shall we select an event that ends earliest among a set of attendable events?
+Maintain a min heap, where events inside at day t are attendable.
+
+What are attendable events?
+start <= t <= end and not attended yet
+
+To achieve start <= t <= end, we can add an event to the min heap when we are at day start; and remove events with end < t at day t before selecting an event to attend.
+
+To achieve not attended yet, we might sort events by start time, and maintain pointer eventId, where events before eventId are either attended or not attendable.
+    
+    
+    
+    
+static bool arrange(vector<int> & v1, vector<int> &v2){
+    return v1[1] < v2[1];
+}
+class Solution {
+public:
+    int maxEvents(vector<vector<int>>& events) {
+        if(events.size() == 0 ){
+            return 0;
+        }
+        int i, j, noOfEvents = 0;
+        set<int> s;
+        // sort events by finishing time 
+        sort(events.begin(),events.end(),arrange);
+        int n = events.size();
+        // it is a part of optimisation
+        // we are inserting possible available days
+        int lastDay = events[n-1][1];
+        for(i = 0; i <= lastDay; i++){
+            s.insert(i);
+        }
+	
+	
+	 // # We will check the start in unique day set. if it is not present, we simply add this.
+	 // # else, we will check next start, and will add all start date until we reach to finish date
+	
+	
+        for(i = 0; i < events.size(); i++){
+            auto day = s.lower_bound(events[i][0]);
+            if(day == s.end() || *day > events[i][1]){
+                continue;
+            }else{
+                noOfEvents++;
+                s.erase(day);
+            }
+        }
+        return noOfEvents;
+    }
+};
+
+
+
+
+
+
 
 
 
