@@ -22,6 +22,36 @@ The length of the given array won't exceed 1000.
 The integers in the given array are in the range of [0, 1000].
 
 
+    
+    
+    class Solution {
+public:
+    int triangleNumber(vector<int>& nums) {
+           // O(n^2) time | O(logn) space
+    int answer = 0;
+    sort(nums.begin(), nums.end());
+    for(int i = nums.size() - 1; i >= 2; i--){
+        int left = 0;
+        int right = i - 1;
+        
+        while(left < right){
+            
+            if(nums[left] + nums[right] > nums[i]){
+                answer += (right - left);
+                right--;
+            }else{
+                left++;
+            }
+        }
+    }
+    return answer;
+}
+        
+    
+};
+
+
+
 
 public static int triangleNumber(int[] A) {
     Arrays.sort(A);
