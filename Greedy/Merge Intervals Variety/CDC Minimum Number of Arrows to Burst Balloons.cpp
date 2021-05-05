@@ -59,7 +59,23 @@ points[i].length == 2
 
 
 
-
+class Solution {
+public:
+    int findMinArrowShots(vector<vector<int>>& points) {
+        if (size(points) <= 1) return size(points);
+        sort(begin(points), end(points), [](const auto& x, const auto& y) {
+           return x.back() < y.back(); 
+        });
+        int arrows = 1, last_interval_end = points[0].back();
+        for (int i = 1; i < size(points); ++i) {
+            if (last_interval_end < points[i].front()) {
+                last_interval_end = points[i].back();
+                ++arrows;
+            }
+        }
+        return arrows;
+    }
+};
 
 
 
