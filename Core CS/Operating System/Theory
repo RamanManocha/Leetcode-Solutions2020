@@ -1,0 +1,47 @@
+file:///C:/Users/Raman%20Manocha/Desktop/Operating%20Systems%20Interview%20Questions.html
+
+Deadlock is a situation where a set of processes are blocked because each process is holding a resource and waiting for another resource acquired by some other process.
+
+
+
+
+Thrashing is a condition or a situation when the system is spending a major portion of its time in servicing the page faults, but the actual processing done is very negligible.
+
+
+
+Internal Fragmentation: Internal fragmentation happens when the memory is split into mounted sized blocks. Whenever a method request for the memory, the mounted 
+sized block is allotted to the method. just in case the memory allotted to the method 
+is somewhat larger than the memory requested, then the distinction between allotted and requested memory is that the internal fragmentation.
+
+
+External Fragmentation:
+External fragmentation happens when there's a sufficient quantity of area within the memory to satisfy the memory request of a method. however,
+the process’s memory request cannot be happy because the memory offered is during a non-contiguous manner. Either you apply first-fit or best-fit memory allocation strategy 
+it'll cause external fragmentation
+
+
+
+Page table has page table entries where each page table entry stores a frame number and optional status (like protection) bits. Many of the status bits used
+in the virtual memory system. The most important thing in PTE is frame Number.
+
+
+
+External Fragmentation:
+External fragmentation happens when there's a sufficient quantity of area within the memory to satisfy the memory request of a method. however, 
+the process’s memory request cannot be happy because the memory offered is during a non-contiguous manner. Either you apply first-fit or best-fit memory 
+allocation strategy it'll cause external fragmentation.
+
+Necessary Conditions for Deadlock to occur Deadlock can arise if the following four conditions hold simultaneously
+
+Mutual Exclusion: One or more than one resource are non-sharable (Only one process can use at a time)
+Hold and Wait: A process is holding at least one resource and waiting for resources.
+No Preemption: A resource cannot be taken from a process unless the process releases the resource.
+Circular Wait: A set of processes are waiting for each other in circular form.
+
+
+
+The banker’s algorithm is a resource allocation and deadlock avoidance algorithm that tests for safety by simulating the allocation for
+predetermined maximum possible amounts of all resources, then makes an “s-state” check to test for possible activities, before deciding whether allocation
+should be allowed to continue.
+
+
