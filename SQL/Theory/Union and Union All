@@ -1,0 +1,21 @@
+
+
+
+
+https://dataschool.com/learn-sql/what-is-the-difference-between-union-and-union-all/#:~:text=UNION%20ALL%20keeps%20all%20of,returning%20the%20combined%20data%20set.
+
+
+
+UNION-ing data
+UNION or UNION ALL have the same basic requirements of the data being combined:
+
+There must be the same number of columns retrieved in each SELECT statement to be combined.
+The columns retrieved must be in the same order in each SELECT statement.
+The columns retrieved must be of similar data types.
+
+
+
+
+We have seen that UNION and UNION ALL are useful to concatenate data sets and to manage whether or not we retain duplicates.
+UNION performs a deduplication step before returning the final results, UNION ALL retains all duplicates and returns the full, concatenated results.
+To allow success the number of columns, data types, and data order in each SELECT must be a match.
