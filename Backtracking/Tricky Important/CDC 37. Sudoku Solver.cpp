@@ -46,44 +46,39 @@ It is guaranteed that the input board has only one solution
 
 
 
+bool check(vector<vector<char>> &board, int i, int j, char val)
+{
+    int row = i - i%3, column = j - j%3;
+    for(int x=0; x<9; x++) if(board[x][j] == val) return false;
+    for(int y=0; y<9; y++) if(board[i][y] == val) return false;
+    for(int x=0; x<3; x++)
+    for(int y=0; y<3; y++)
+        if(board[row+x][column+y] == val) return false;
+    return true;
+}
+bool solveSudoku(vector<vector<char>> &board, int i, int j)
+{
+    if(i==9) return true;
+    if(j==9) return solveSudoku(board, i+1, 0);
+    if(board[i][j] != '.') return solveSudoku(board, i, j+1);
 
-
-
-class Solution {
-public:
-    int minimumMoves(vector<int>& arr) {
-        int n = arr.size();
-        
-        // dp[left][right] = the min move for arr[left]...arr[right] (both included).
-        // the max number of move is n.
-        vector<vector<int>> dp(n, vector<int>(n, n));
-        
-        // handle edge situation: subarray size == 1
-        for(int i = 0; i < n; i++) { dp[i][i] = 1; }
-        
-        // handle edge situation: subarray size == 2
-        for(int i = 0; i < n - 1; i++) { dp[i][i + 1] = arr[i] == arr[i + 1] ? 1 : 2; }
-        
-        // for subarray size >= 3:
-        for(int size = 3; size <= n; size++) {
-            for(int left = 0, right = left + size - 1; right < n; left++, right++) {
-                
-                // if arr[left] == arr[right], then the two number: arr[left] and arr[right] can be
-                // removed when the last move of subarray arr[left + 1:right - 1]
-                if(arr[left] == arr[right]) {
-                    dp[left][right] = dp[left + 1][right - 1];
-                }
-                
-                // or, if we cannot remove arr[left] and arr[right] in one move (the last move),
-                // the subarray arr[left:right] must can be split into two subarrays
-                // and remove them one by one.
-                for(int mid = left; mid < right; mid++) {
-                    dp[left][right] = min(dp[left][right], dp[left][mid] + dp[mid + 1][right]);
-                }
-            }
+    for(char c='1'; c<='9'; c++)
+    {
+        if(check(board, i, j, c))
+        {
+            board[i][j] = c;
+            if(solveSudoku(board, i, j+1)) return true;
+            board[i][j] = '.';
         }
-        return dp[0][n - 1];
     }
-};
+        
+    return false;
+}
+public:
+void solveSudoku(vector<vector>& board) {
+solveSudoku(board, 0, 0);
+}
+
+
 
 
